@@ -13,6 +13,6 @@ class HomeController extends Controller
         $title = 'Главная';
         $posts = Post::latest()->get();
 
-        return view('home', compact('posts', 'title'));
+        return view('pages.home', compact('posts', 'title'));
     }
 }

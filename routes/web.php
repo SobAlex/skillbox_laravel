@@ -21,15 +21,15 @@ Route::delete('/publikacii/{post}', 'PostController@destroy');
 
 
 // Задачи
-// Route::get('/tasks', 'TaskController@index');
-// Route::get('/tasks/sozdat-zadachu', 'TaskController@create');
-// Route::get('/tasks/{task}', 'TaskController@show');
-// Route::post('/tasks', 'TaskController@store');
-// Route::get('tasks/{task}/edit', 'TaskController@edit');
-// Route::patch('/tasks/{task}', 'TaskController@update');
-// Route::delete('tasks/{task}', 'TaskController@destroy');
+Route::get('/tasks', 'TaskController@index');
+Route::get('/tasks/sozdat-zadachu', 'TaskController@create');
+Route::get('/tasks/{task}', 'TaskController@show');
+Route::post('/tasks', 'TaskController@store');
+Route::get('tasks/{task}/edit', 'TaskController@edit');
+Route::patch('/tasks/{task}', 'TaskController@update');
+Route::delete('tasks/{task}', 'TaskController@destroy');
 
-Route::resource('/tasks', 'TaskController');
+// Route::resource('/tasks', 'TaskController');
 
 // Контакты
 Route::get('/kontacty', 'ContactController@index')->name('contacts');
