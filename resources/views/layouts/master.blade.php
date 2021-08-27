@@ -28,9 +28,6 @@
     @include('includes.header')
     @include('includes.nav')
 
-{{--Jumbotron--}}
-{{--    @include('includes.jumbotron')--}}
-{{--    @include('includes.front-posts')--}}
 </div>
 
 {{--Content--}}

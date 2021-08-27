@@ -47,13 +47,6 @@ class PostController extends Controller
 
     public function update(PostRequest $post)
     {
-        // $this->validate(request(), [
-        //     'code' => 'required|alpha_dash|unique:posts,code',
-        //     'title' => 'required|min:5|max:100',
-        //     'shortContent' => 'required|max:255',
-        //     'content' => 'required',
-        // ]);
-
         $post->update($attributes);
 
         return redirect('/');
