@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Post;
 use Illuminate\Http\Request;
+use PhpParser\Builder\Function_;
 
 class PostController extends Controller
 {
@@ -21,16 +23,8 @@ class PostController extends Controller
         return view('posts.create', compact('title'));
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-
-        $this->validate(request(), [
-            'code' => 'required|alpha_dash|unique:posts,code',
-            'title' => 'required|min:5|max:100',
-            'shortContent' => 'required|max:255',
-            'content' => 'required',
-        ]);
-
         $isPublick = ($request->isPublick) ? '1' : '0';
 
         Post::create([
@@ -41,6 +35,25 @@ class PostController extends Controller
             'isPublick' => $isPublick,
         ]);
 
+        return redirect('/');
+    }
+
+    public function edit(Post $post)
+    {
+        $title = 'Редактировать статью';
+
+        return view('posts.edit', compact('post', 'title'));
+    }
+
+    public function update(PostRequest $post)
+    {
+        $post->update($attributes);
+
+        return redirect('/');
+    }
+    public function destroy(Post $post)
+    {
+        $post->delete();
         return redirect('/');
     }
 }
