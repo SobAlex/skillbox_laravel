@@ -29,7 +29,10 @@ Route::get('tasks/{task}/edit', 'TaskController@edit');
 Route::patch('/tasks/{task}', 'TaskController@update');
 Route::delete('tasks/{task}', 'TaskController@destroy');
 
-// Route::resource('/tasks', 'TaskController');
+Route::post('/tasks/{task}/steps', 'TaskStepsController@store');
+
+Route::post('completed-steps/{step}', 'CompletedStepsController@store');
+Route::delete('completed-steps/{step}', 'CompletedStepsController@destroy');
 
 // Контакты
 Route::get('/kontacty', 'ContactController@index')->name('contacts');
