@@ -4,6 +4,8 @@
 
     <div class="container">
 
+        @include('tasks.tags', ['tags' => $task->tags])
+
         <h1>{{ $task->body }}</h1>
 
         @if ($task->steps->isNotEmpty())

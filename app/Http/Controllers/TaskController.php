@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -11,9 +12,11 @@ class TaskController extends Controller
     {
         $title = 'Список задач';
 
-        $tasks = Task::incomplete()->get();
+        $tasks = Task::with('tags')->latest()->get();
 
-        return view('tasks.index', compact('tasks', 'title'));
+        $tags = Tag::all();
+
+        return view('tasks.index', compact('tasks', 'title', 'tags'));
     }
 
     public function show(Task $task)

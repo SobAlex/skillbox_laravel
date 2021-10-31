@@ -6,11 +6,12 @@
         <div class="row">
             <div class="col-md-8 blog-main">
                 <h3 class="pb-3 mb-4 font-italic border-bottom">
-                    From the Firehose
+                    Список задач
                 </h3>
 
                 <ul>
-                    @foreach($tasks as $task)
+                    @foreach ($tasks as $task)
+                        @include('tasks.tags', ['tags' => $task->tags])
                         <li>{{ $task->body }}</li>
                         <a href="{{ asset('tasks') }}/{{ $task->id }}">Подробнее</a>
                     @endforeach
@@ -28,5 +29,3 @@
     </main><!-- /.container -->
 
 @endsection
-
-
