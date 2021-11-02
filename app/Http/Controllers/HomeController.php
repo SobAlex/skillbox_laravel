@@ -14,7 +14,6 @@ class HomeController extends Controller
     {
         $title = 'Главная';
         $posts = Post::with('tags')->latest()->get();
-
         $tags = Tag::all();
 
         return view('pages.home', compact('posts', 'title', 'tags'));

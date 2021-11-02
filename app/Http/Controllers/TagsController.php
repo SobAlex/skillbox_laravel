@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
-    public function index($tags)
+    public function index($tag)
     {
-        $posts = Post::whereHas('tags', function ($query) use ($tags) {
-            $query->where('name', $tags);
+        $posts = Post::whereHas('tags', function ($query) use ($tag) {
+            $query->where('name', $tag);
         })->get();
 
-        $title = 'Статьи с тегом ' . $tags;
+        $title = 'Статьи с тегом ' . $tag;
 
         return view('pages.home', compact('posts', 'title'));
     }

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index');
 
 // Теги
-Route::get('/publikacii/tags/{tags}', 'TagsController@index');
+Route::get('/publikacii/tags/{tag}', 'TagsController@index');
 
 // Статьи
 Route::redirect('/publikacii', '/', 301);
