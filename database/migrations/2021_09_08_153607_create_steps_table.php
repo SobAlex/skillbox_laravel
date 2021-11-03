@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnCheckboxToUsersTable extends Migration
+class CreateStepsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddColumnCheckboxToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->boolean('isPublick')->default('1');
+        Schema::create('steps', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('task_id');
+            $table->string('description');
+            $table->boolean('completed')->default(false);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddColumnCheckboxToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('steps');
     }
 }

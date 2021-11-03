@@ -9,9 +9,14 @@
                     Публикации
                 </h3>
 
+
+
                 @foreach($posts as $post)
 
                    @if($post->isPublick)
+                        <ul>
+                            @include('tasks.tags', ['tags' => $post->tags])
+                        </ul>
                     <div class="blog-post">
                         <h2 class="blog-post-title">{{ $post->title }}</h2>
                         <p class="blog-post-meta">{{ $post->created_at->format('d.m.Y H:i:s') }}</p>

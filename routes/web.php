@@ -4,11 +4,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Post;
 use App\Task;
+use App\Tag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 // Главная страница
 Route::get('/', 'HomeController@index');
+
+// Теги
+Route::get('/publikacii/tags/{tag}', 'TagsController@index');
 
 // Статьи
 Route::redirect('/publikacii', '/', 301);
@@ -19,9 +23,8 @@ Route::get('/publikacii/{post}/edit', 'PostController@edit')->name('postEdit');
 Route::patch('/publikacii/{post}', 'PostController@update');
 Route::delete('/publikacii/{post}', 'PostController@destroy');
 
-
 // Задачи
-Route::get('/tasks', 'TaskController@index');
+Route::get('/tasks', 'TaskController@index')->name('task');
 Route::get('/tasks/sozdat-zadachu', 'TaskController@create');
 Route::get('/tasks/{task}', 'TaskController@show');
 Route::post('/tasks', 'TaskController@store');
@@ -29,7 +32,10 @@ Route::get('tasks/{task}/edit', 'TaskController@edit');
 Route::patch('/tasks/{task}', 'TaskController@update');
 Route::delete('tasks/{task}', 'TaskController@destroy');
 
-// Route::resource('/tasks', 'TaskController');
+// Шаги к задачам выполнено/невыполнено
+Route::post('/tasks/{task}/steps', 'TaskStepsController@store');
+Route::post('completed-steps/{step}', 'CompletedStepsController@store');
+Route::delete('completed-steps/{step}', 'CompletedStepsController@destroy');
 
 // Контакты
 Route::get('/kontacty', 'ContactController@index')->name('contacts');
