@@ -10,7 +10,7 @@
 
 
 
-    <title>{{ $title }}</title>
+    <title>{{ $title ?? '' }}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/blog/">
 
