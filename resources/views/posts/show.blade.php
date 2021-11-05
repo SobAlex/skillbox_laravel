@@ -13,7 +13,6 @@
             <a href="/publikacii/{{ $post->id }}/edit">Изменить</a>
         @endcan
 
-
     </div>
 
 @endsection

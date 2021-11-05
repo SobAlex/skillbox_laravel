@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Post;
-use Illuminate\Http\Request;
-use PhpParser\Builder\Function_;
 use App\Tag;
 use App\Services\TagsSynchronizer;
 
@@ -20,7 +18,6 @@ class PostController extends Controller
     public function index()
     {
         $title = 'Главная';
-        // $posts = Post::where('owner_id', auth()->id())->with('tags')->latest()->get();
         $posts = auth()->user()->posts()->with('tags')->latest()->get();
 
         $tags = Tag::all();
@@ -52,8 +49,6 @@ class PostController extends Controller
             'content' => request('content'),
             'isPublick' => $isPublick,
         ]);
-
-
 
         $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
 

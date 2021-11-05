@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Tag;
 use App\Post;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class TagsSynchronizer

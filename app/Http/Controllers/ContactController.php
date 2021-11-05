@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 
-use Illuminate\Http\Request;
-
 class ContactController extends Controller
 {
     public function index()
@@ -36,7 +34,6 @@ class ContactController extends Controller
 
         $contacts = Contact::latest()->get();
 
-        return view('/contacts.show', compact( 'title', 'contacts'));
+        return view('/contacts.show', compact('title', 'contacts'));
     }
-
 }

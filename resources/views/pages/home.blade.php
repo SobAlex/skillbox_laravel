@@ -13,8 +13,6 @@ $posts = $posts ?? collect();
                     Публикации
                 </h3>
 
-
-
                 @foreach ($posts as $post)
 
                     @if ($post->isPublick)

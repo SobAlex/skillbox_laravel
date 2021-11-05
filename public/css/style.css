@@ -1,5 +1,30 @@
 /* stylelint-disable selector-list-comma-newline-after */
 
+html {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.box-header {
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 0 0 auto;
+}
+
+.box-content {
+    /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 1 0 auto;
+    padding-bottom: 30px;
+}
+
+.box-footer {
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 0 0 auto;
+}
+
 .blog-header {
     line-height: 1;
     border-bottom: 1px solid #e5e5e5;
