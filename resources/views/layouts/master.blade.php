@@ -7,17 +7,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
-
-
-
-    <title>{{ $title }}</title>
-
+    <title>{{ $title ?? '' }}</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/blog/">
-
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link rel="stylesheet" href={{ asset('css/style.css') }}>
@@ -25,18 +19,18 @@
 
 <body>
 
-
-    <div class="container">
+    <div class="container box-header">
         {{-- Header --}}
         @include('includes.header')
         @include('includes.nav')
 
     </div>
 
-    {{-- Content --}}
-    @yield('content')
+    <div class="box-content">
+        {{-- Content --}}
+        @yield('content')
 
-
+    </div>
 
     {{-- Footer --}}
     @include('includes.footer')

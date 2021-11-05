@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Routing\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,8 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //        Route::pattern('id', '[0-9]+');
-        //        Route::pattern('slug', '[A-Za-z0-9-]+');
         view()->composer('includes.aside', function ($view) {
             $view->with('tagsCloud', \App\Tag::tagsCloud());
         });

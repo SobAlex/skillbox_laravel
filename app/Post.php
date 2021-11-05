@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    public $fillable = ['title', 'content', 'shortContent', 'code', 'isPublick'];
+    public $fillable = ['owner_id', 'title', 'content', 'shortContent', 'code', 'isPublick'];
 
     public function tags()
     {

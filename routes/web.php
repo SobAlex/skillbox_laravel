@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 // Главная страница
-Route::get('/', 'HomeController@index');
+Route::get('/', 'PostController@index');
 
 // Теги
 Route::get('/publikacii/tags/{tag}', 'TagsController@index');
@@ -44,3 +44,5 @@ Route::get('/obrashcheniya', 'ContactController@show')->name('feedback');
 
 // О нас
 Route::get('/o-nas', 'AboutController@index')->name('about');
+
+Auth::routes();

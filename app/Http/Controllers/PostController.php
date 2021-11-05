@@ -4,13 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Post;
-use Illuminate\Http\Request;
-use PhpParser\Builder\Function_;
 use App\Tag;
 use App\Services\TagsSynchronizer;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index()
+    {
+        $title = 'Главная';
+        $posts = auth()->user()->posts()->with('tags')->latest()->get();
+
+        $tags = Tag::all();
+
+        return view('pages.home', compact('posts', 'title', 'tags'));
+    }
+
     public function show(Post $post)
     {
         $title = 'Статья';
@@ -28,6 +42,7 @@ class PostController extends Controller
         $isPublick = ($request->isPublick) ? '1' : '0';
 
         $post = Post::create([
+            'owner_id' => auth()->id(),
             'code' => request('code'),
             'title' => request('title'),
             'shortContent' => request('shortContent'),
@@ -42,6 +57,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
         $title = 'Редактировать статью';
         return view('posts.edit', compact('post', 'title'));
     }

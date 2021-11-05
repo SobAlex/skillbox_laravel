@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Step;
 
-use Illuminate\Http\Request;
-use PhpParser\Node\Expr\FuncCall;
-
 class CompletedStepsController extends Controller
 {
     public function store(Step $step)

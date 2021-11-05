@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@php
+$posts = $posts ?? collect();
+@endphp
+
 @section('content')
 
     <main role="main" class="container">
@@ -9,20 +13,18 @@
                     Публикации
                 </h3>
 
+                @foreach ($posts as $post)
 
-
-                @foreach($posts as $post)
-
-                   @if($post->isPublick)
+                    @if ($post->isPublick)
                         <ul>
                             @include('tasks.tags', ['tags' => $post->tags])
                         </ul>
-                    <div class="blog-post">
-                        <h2 class="blog-post-title">{{ $post->title }}</h2>
-                        <p class="blog-post-meta">{{ $post->created_at->format('d.m.Y H:i:s') }}</p>
-                        <p>{{ $post->shortContent }}</p>
-                        <a href="{{ asset('publikacii') }}/{{ $post->id }}">Читать статью</a>
-                    </div><!-- /.blog-post -->
+                        <div class="blog-post">
+                            <h2 class="blog-post-title">{{ $post->title }}</h2>
+                            <p class="blog-post-meta">{{ $post->created_at->format('d.m.Y H:i:s') }}</p>
+                            <p>{{ $post->shortContent }}</p>
+                            <a href="{{ asset('publikacii') }}/{{ $post->id }}">Читать статью</a>
+                        </div><!-- /.blog-post -->
                     @endif
                 @endforeach
 
@@ -38,5 +40,3 @@
     </main><!-- /.container -->
 
 @endsection
-
-
