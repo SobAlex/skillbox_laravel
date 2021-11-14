@@ -27,6 +27,11 @@
     </div>
 
     <div class="box-content">
+
+        <div class="container">
+            @include('includes.flash_message')
+        </div>
+
         {{-- Content --}}
         @yield('content')
 

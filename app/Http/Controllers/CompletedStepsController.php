@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\TaskStepCompleted;
 use App\Step;
 
 class CompletedStepsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function store(Step $step)
     {
         $step->complete();
