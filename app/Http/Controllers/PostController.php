@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Notifications\PostCreate;
+use App\Notifications\PostDelete;
+use App\Notifications\PostUpdate;
 use App\Post;
 use App\Tag;
 use App\Services\TagsSynchronizer;
@@ -19,7 +22,6 @@ class PostController extends Controller
     {
         $title = 'Главная';
         $posts = auth()->user()->posts()->with('tags')->latest()->get();
-
         $tags = Tag::all();
 
         return view('pages.home', compact('posts', 'title', 'tags'));
@@ -34,6 +36,9 @@ class PostController extends Controller
     public function create()
     {
         $title = 'Создать статью';
+
+        auth()->user()->notify(new PostCreate());
+
         return view('posts.create', compact('title'));
     }
 
@@ -51,6 +56,8 @@ class PostController extends Controller
         ]);
 
         $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
+
+        flash('Сообщение создано!');
 
         return redirect('/');
     }
@@ -75,12 +82,20 @@ class PostController extends Controller
 
         $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
 
+        auth()->user()->notify(new PostUpdate());
+
+        flash('Сообщение изменено!');
+
         return redirect('/');
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
+        auth()->user()->notify(new PostDelete());
+
+        flash('Сообщение удалено!', 'warning');
+
         return redirect('/');
     }
 }
