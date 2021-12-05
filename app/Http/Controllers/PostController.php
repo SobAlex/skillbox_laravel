@@ -9,15 +9,10 @@ use App\Notifications\PostUpdate;
 use App\Post;
 use App\Tag;
 use App\Services\TagsSynchronizer;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
-
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
     public function index(Post $post)
     {
         $title = 'Главная';
@@ -65,8 +60,6 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        $this->authorize('update', $post);
-
         $title = 'Редактировать статью';
 
         return view('posts.edit', compact('post', 'title'));
