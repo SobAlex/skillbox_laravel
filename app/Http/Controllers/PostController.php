@@ -13,15 +13,15 @@ use App\Services\TagsSynchronizer;
 class PostController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
-    public function index()
+    public function index(Post $post)
     {
         $title = 'Главная';
-        $posts = auth()->user()->posts()->with('tags')->latest()->get();
+        $posts = $post->with('tags')->latest()->get();
         $tags = Tag::all();
 
         return view('pages.home', compact('posts', 'title', 'tags'));
@@ -30,14 +30,13 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $title = 'Статья';
+
         return view('posts.show', compact('post', 'title'));
     }
 
     public function create()
     {
         $title = 'Создать статью';
-
-        auth()->user()->notify(new PostCreate());
 
         return view('posts.create', compact('title'));
     }
@@ -55,6 +54,8 @@ class PostController extends Controller
             'isPublick' => $isPublick,
         ]);
 
+        auth()->user()->notify(new PostCreate($post->id));
+
         $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
 
         flash('Сообщение создано!');
@@ -65,7 +66,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $this->authorize('update', $post);
+
         $title = 'Редактировать статью';
+
         return view('posts.edit', compact('post', 'title'));
     }
 
@@ -82,7 +85,7 @@ class PostController extends Controller
 
         $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
 
-        auth()->user()->notify(new PostUpdate());
+        auth()->user()->notify(new PostUpdate($post->id));
 
         flash('Сообщение изменено!');
 
@@ -92,6 +95,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
         auth()->user()->notify(new PostDelete());
 
         flash('Сообщение удалено!', 'warning');

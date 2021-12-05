@@ -19,7 +19,7 @@ Route::redirect('/publikacii', '/', 301);
 Route::get('/publikacii/sozdat-statyu', 'PostController@create')->name('postCreate');
 Route::get('/publikacii/{post}', 'PostController@show');
 Route::post('/publikacii', 'PostController@store');
-Route::get('/publikacii/{post}/edit', 'PostController@edit')->name('postEdit');
+Route::get('/publikacii/{post}/edit', 'PostController@edit')->middleware('can:edit-post,post')->name('postEdit');
 Route::patch('/publikacii/{post}', 'PostController@update');
 Route::delete('/publikacii/{post}', 'PostController@destroy');
 

@@ -3,7 +3,7 @@
 
     {{ $post->content }}
 
-    @component('mail::button', ['url' => '/', $post->id])
+    @component('mail::button', ['url' => '/publikacii/' . $post->id])
         посмотреть сообщение
     @endcomponent
 

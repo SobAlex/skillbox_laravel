@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\TaskStepCompleted;
 use App\Step;
 
 class CompletedStepsController extends Controller

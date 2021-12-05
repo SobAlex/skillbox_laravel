@@ -3,14 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+use Illuminate\Support\Facades\Gate;
+use App\Post;
 
 class ContactController extends Controller
 {
-    public function index()
-    {
-        $title = 'Контакты';
 
-        return view('/contacts.index', compact('title'));
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index(Post $post)
+    {
+
+        if (Gate::check('view-admin-part')) {
+
+            $title = 'Контакты';
+
+            return view('/contacts.index', compact('title'));
+        }
+        return 'Раздел для администратора';
     }
 
     public function store()
@@ -30,10 +43,16 @@ class ContactController extends Controller
 
     public function show()
     {
-        $title = 'Обращения';
+        if (Gate::check('view-admin-part')) {
 
-        $contacts = Contact::latest()->get();
+            $title = 'Обращения';
 
-        return view('/contacts.show', compact('title', 'contacts'));
+            $contacts = Contact::latest()->get();
+
+            $posts = \App\Post::all();
+
+            return view('/contacts.show', compact('title', 'contacts', 'posts'));
+        }
+        return 'Раздел для администратора';
     }
 }

@@ -11,14 +11,16 @@ class PostCreate extends Notification
 {
     use Queueable;
 
+    private $postId;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($postId)
     {
-        //
+        $this->postId = $postId;
     }
 
     /**
@@ -40,9 +42,12 @@ class PostCreate extends Notification
      */
     public function toMail($notifiable)
     {
+
+        $url = url('/publikacii/' . $this->postId);
+
         return (new MailMessage)
             ->line('Сообщение добавлено.')
-            ->action('Список постов', url('/'))
+            ->action('Посмотреть сообщение', $url)
             ->line('С уважением то сё!');
     }
 
