@@ -45,10 +45,8 @@ class ContactController extends Controller
     {
         if (Gate::check('view-admin-part')) {
 
-            $title = 'Обращения';
-
+            $title = 'Админ раздел';
             $contacts = Contact::latest()->get();
-
             $posts = \App\Post::all();
 
             return view('/contacts.show', compact('title', 'contacts', 'posts'));

@@ -16,7 +16,7 @@ Route::get('/publikacii/tags/{tag}', 'TagsController@index');
 
 // Статьи
 Route::redirect('/publikacii', '/', 301);
-Route::get('/publikacii/sozdat-statyu', 'PostController@create')->name('postCreate');
+Route::get('/publikacii/sozdat-statyu', 'PostController@create')->middleware('auth')->name('postCreate');
 Route::get('/publikacii/{post}', 'PostController@show');
 Route::post('/publikacii', 'PostController@store');
 Route::get('/publikacii/{post}/edit', 'PostController@edit')->middleware('can:edit-post,post')->name('postEdit');

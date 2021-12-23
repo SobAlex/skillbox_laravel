@@ -23,8 +23,6 @@
                 </nav>
             </div><!-- /.blog-main -->
 
-            @include('includes.aside')
-
         </div><!-- /.row -->
     </main><!-- /.container -->
 
