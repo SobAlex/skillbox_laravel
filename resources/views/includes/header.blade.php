@@ -4,7 +4,7 @@
             <a class="text-muted" href="#">Subscribe</a>
         </div>
         <div class="col-4 text-center">
-            <a class="blog-header-logo text-dark" href="#">Skillbox & QSoft Laravel</a>
+            <a class="blog-header-logo text-dark" href="#">Skillbox & QSoft</a>
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
             <a class="text-muted" href="#">
@@ -33,7 +33,7 @@
 
                 <div class="dropdown-menu dropdown-menu-right mt-1" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a>
 

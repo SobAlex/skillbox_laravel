@@ -16,7 +16,7 @@ class PostController extends Controller
     public function index(Post $post)
     {
         $title = 'Главная';
-        $posts = $post->with('tags')->latest()->get();
+        $posts = $post->with('tags')->latest()->paginate(5);
         $tags = Tag::all();
 
         return view('pages.home', compact('posts', 'title', 'tags'));

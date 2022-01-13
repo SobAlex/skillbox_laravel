@@ -60,6 +60,8 @@ $posts = $posts ?? collect();
                     <a class="btn btn-outline-primary" href="#">Older</a>
                     <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
                 </nav>
+
+                {{ $posts->withQueryString()->links() }}
             </div><!-- /.blog-main -->
 
             @include('includes.aside')

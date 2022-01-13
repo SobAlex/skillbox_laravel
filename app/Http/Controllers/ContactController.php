@@ -41,13 +41,13 @@ class ContactController extends Controller
         return redirect('/obrashcheniya');
     }
 
-    public function show()
+    public function show(Post $post)
     {
         if (Gate::check('view-admin-part')) {
 
             $title = 'Админ раздел';
             $contacts = Contact::latest()->get();
-            $posts = \App\Post::all();
+            $posts = $post->with('tags')->latest()->paginate(5);
 
             return view('/contacts.show', compact('title', 'contacts', 'posts'));
         }
