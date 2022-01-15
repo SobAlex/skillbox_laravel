@@ -2,57 +2,34 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\SendEmailToUser;
 use Illuminate\Console\Command;
 use App\User;
 use App\Post;
-use App\Mail\SendEmailToUser;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class SendEmail extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'send:email
-    {users?* : Пользователи}
-    {--date1 : Начало периода}
-    {--date2 : Конец периода}';
+    protected $signature = 'send:email {from?} {to?}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Send email to users';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle()
     {
+        $users = User::all();
 
-        $users = $this->argument('users')
-            ? User::findOrFail($this->argument('users'))
-            : User::all();
+        // $posts = $this->arguments('from', 'to')
+        //     ? $posts = DB::table('posts')->whereBetween('created_at', [
+        //         $this->argument('from'),
+        //         $this->argument('to')
+        //     ])->get()
+        //     : Post::all();
 
-        $posts = $this->arguments('date1', 'date2')
-            ? Post::whereBetween('created_at', [$this->argument('date1'), $this->argument('date2')])->get()
-            : Post::all();
+        $post = Post::find(2);
 
-        $users->map->notify(new SendEmailToUser($posts));
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new SendEmailToUser($post));
+        }
     }
 }

@@ -11,13 +11,14 @@ use Illuminate\Queue\SerializesModels;
 
 class SendEmailToUser extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
-    public $posts;
+    public $post;
 
-    public function __construct($posts)
+    public function __construct(Post $post)
     {
-        $this->posts = $posts;
+        $this->post = $post;
     }
 
     /**

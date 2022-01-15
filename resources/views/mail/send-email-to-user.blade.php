@@ -2,11 +2,15 @@
     # Introduction
 
     # Список постов:
-    <ul>
+    {{-- <ul>
         @foreach ($posts as $post)
             <li>{{ $post->title }}</li>
         @endforeach
-    </ul>
+    </ul> --}}
+
+    Пост номер: {{ $post->id }}
+    Заголовок: {{ $post->title }}
+    Содержание: {{ $post->content }}
 
     @component('mail::button', ['url' => '/'])
         Button Text
