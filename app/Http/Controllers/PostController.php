@@ -7,6 +7,7 @@ use App\Notifications\PostCreate;
 use App\Notifications\PostDelete;
 use App\Notifications\PostUpdate;
 use App\Post;
+
 use App\Tag;
 use App\Services\TagsSynchronizer;
 use Illuminate\Support\Facades\Gate;
@@ -18,6 +19,8 @@ class PostController extends Controller
         $title = 'Главная';
         $posts = $post->with('tags')->latest()->paginate(5);
         $tags = Tag::all();
+
+        dd($posts);
 
         return view('pages.home', compact('posts', 'title', 'tags'));
     }

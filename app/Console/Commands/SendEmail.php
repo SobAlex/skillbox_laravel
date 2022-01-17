@@ -19,17 +19,16 @@ class SendEmail extends Command
     {
         $users = User::all();
 
-        // $posts = $this->arguments('from', 'to')
-        //     ? $posts = DB::table('posts')->whereBetween('created_at', [
-        //         $this->argument('from'),
-        //         $this->argument('to')
-        //     ])->get()
-        //     : Post::all();
+        $posts = $this->argument('from')
+            ? $posts = DB::table('posts')->whereBetween('created_at', [
+                $this->argument('from'),
+                $this->argument('to')
+            ])->get()
+            : $posts = Post::all();
 
-        $post = Post::find(2);
-
-        foreach ($users as $user) {
-            Mail::to($user->email)->send(new SendEmailToUser($post));
+        foreach ($users as $user) { {
+                Mail::to($user->email)->send(new SendEmailToUser($posts));
+            }
         }
     }
 }

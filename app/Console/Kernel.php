@@ -28,7 +28,10 @@ class Kernel extends ConsoleKernel
             return;
         }
 
-        $schedule->command('send:email')->everyMinute();
+        $schedule->command('send:email 2022-01-01 2022-01-30')
+            ->timezone('Europe/Moscow')
+            ->mondays()
+            ->at('10:00');
     }
 
     /**

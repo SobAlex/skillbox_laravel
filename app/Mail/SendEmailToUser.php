@@ -14,11 +14,11 @@ class SendEmailToUser extends Mailable
     use Queueable;
     use SerializesModels;
 
-    public $post;
+    public $posts;
 
-    public function __construct(Post $post)
+    public function __construct($posts)
     {
-        $this->post = $post;
+        $this->posts = $posts;
     }
 
     /**

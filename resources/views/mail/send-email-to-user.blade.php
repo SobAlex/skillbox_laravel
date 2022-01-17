@@ -1,20 +1,18 @@
 @component('mail::message')
-    # Introduction
+    # Список постов
 
-    # Список постов:
-    {{-- <ul>
-        @foreach ($posts as $post)
-            <li>{{ $post->title }}</li>
-        @endforeach
-    </ul> --}}
-
-    Пост номер: {{ $post->id }}
+    {{-- Пост номер: {{ $post->id }}
     Заголовок: {{ $post->title }}
-    Содержание: {{ $post->content }}
+    Содержание: {{ $post->content }} --}}
 
-    @component('mail::button', ['url' => '/'])
-        Button Text
-    @endcomponent
+    @foreach ($posts as $post)
+        <p>{{ $post->title }}</p>
+        @component('mail::button', ['url' => 'http://skillbox-laravel.loc/publikacii/' . $post->id])
+            посмотреть сообщение
+        @endcomponent
+    @endforeach
+
+
 
     Thanks,<br>
     {{ config('app.name') }}

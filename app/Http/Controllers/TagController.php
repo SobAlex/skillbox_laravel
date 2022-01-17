@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 
-class TagsController extends Controller
+class TagController extends Controller
 {
     public function index($tag)
     {

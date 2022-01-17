@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\PostTagSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\PostSeeder;
 use Database\Seeders\TaskSeeder;
@@ -21,7 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             PostSeeder::class,
-            // TagSeeder::class,
+            TagSeeder::class,
+            PostTagSeeder::class,
             TaskSeeder::class,
             StepSeeder::class,
             ContactSeeder::class,

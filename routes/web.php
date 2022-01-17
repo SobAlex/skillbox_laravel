@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Post;
 use App\Task;
 use App\Tag;
+use App\PostTag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PostController@index');
 
 // Теги
-Route::get('/publikacii/tags/{tag}', 'TagsController@index');
+Route::get('/publikacii/tags/{tag}', 'TagController@index');
 
 // Статьи
 Route::redirect('/publikacii', '/', 301);
