@@ -10,7 +10,7 @@ class TagController extends Controller
     {
         $posts = Post::whereHas('tags', function ($query) use ($tag) {
             $query->where('name', $tag);
-        })->get();
+        })->latest()->paginate(5);
 
         $title = 'Статьи с тегом ' . $tag;
 

@@ -27,7 +27,7 @@ class SendEmail extends Command
             : $posts = Post::all();
 
         foreach ($users as $user) { {
-                Mail::to($user->email)->send(new SendEmailToUser($posts));
+                Mail::fake()->to($user->email)->send(new SendEmailToUser($posts));
             }
         }
     }

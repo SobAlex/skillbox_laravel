@@ -17,7 +17,6 @@ class CreatePostTagsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('tag_id');
-            // $table->primary(['post_id', 'tag_id']); // составной первичный ключ чтобы не дублировать связь 1к1 и 1к1
             $table->timestamps();
 
             $table->index('post_id', 'post_tag_post_idx');

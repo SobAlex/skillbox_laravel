@@ -8,11 +8,7 @@ use App\Contact;
 class ContactFactory extends Factory
 {
     protected $model = Contact::class;
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
+
     public function definition()
     {
         return [

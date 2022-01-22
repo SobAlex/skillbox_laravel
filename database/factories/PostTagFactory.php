@@ -11,11 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class PostTagFactory extends Factory
 {
     protected $model = PostTag::class;
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
+
     public function definition()
     {
         return [

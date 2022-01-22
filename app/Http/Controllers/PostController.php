@@ -20,8 +20,6 @@ class PostController extends Controller
         $posts = $post->with('tags')->latest()->paginate(5);
         $tags = Tag::all();
 
-        dd($posts);
-
         return view('pages.home', compact('posts', 'title', 'tags'));
     }
 
