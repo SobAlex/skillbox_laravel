@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Contact;
 use Illuminate\Support\Facades\Gate;
 use App\Post;
+use App\Services\Pushall;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -26,9 +28,9 @@ class ContactController extends Controller
         return 'Раздел для администратора';
     }
 
-    public function store()
+    public function store(Pushall $pushall)
     {
-        $this->validate(request(), [
+        $data = \request()->validate([
             'email' => 'required|email',
             'message' => 'required',
         ]);
@@ -38,7 +40,11 @@ class ContactController extends Controller
             'message' => request('message'),
         ]);
 
-        return redirect('/obrashcheniya');
+        $pushall->send($data['email'], $data['message']);
+
+        flash('Сообщение отправлено.');
+
+        return back();
     }
 
     public function show(Post $post)
