@@ -13,7 +13,7 @@
                     @foreach ($tasks as $task)
                         @include('tasks.tags', ['tags' => $task->tags])
                         <li>{{ $task->body }}</li>
-                        <a href="{{ asset('tasks') }}/{{ $task->id }}">Подробнее</a>
+                        <a href="{{ url('tasks') }}/{{ $task->id }}">Подробнее</a>
                     @endforeach
                 </ul>
 
