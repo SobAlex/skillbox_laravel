@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Step extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     public function Task()

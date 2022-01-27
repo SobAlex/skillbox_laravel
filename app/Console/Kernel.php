@@ -24,7 +24,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        if (app()->environment() == 'local') {
+            return;
+        }
+
+        $schedule->command('send:email 2022-01-01 2022-01-30')
+            ->timezone('Europe/Moscow')
+            ->mondays()
+            ->at('10:00');
     }
 
     /**
@@ -34,7 +41,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

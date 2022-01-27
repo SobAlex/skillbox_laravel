@@ -14,11 +14,15 @@ class CreateTagTaskTable extends Migration
     public function up()
     {
         Schema::create('tag_task', function (Blueprint $table) {
-            $table->unsignedInteger('tag_id');
-            $table->unsignedInteger('task_id');
-            $table->primary(['tag_id', 'task_id']);
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
-            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+            $table->id();
+            $table->unsignedBigInteger('tag_id');
+            $table->unsignedBigInteger('task_id');
+
+            $table->index('tag_id', 'tag_task_tag_idx');
+            $table->index('task_id', 'tag_task_task_idx');
+
+            $table->foreign('tag_id', 'tag_task_tag_fk')->on('tags')->references('id');
+            $table->foreign('task_id', 'tag_task_task_fk')->on('tasks')->references('id');
         });
     }
 

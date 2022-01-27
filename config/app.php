@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\TagsSynchronizerServiceProvider::class,
+        App\Providers\PushAllServiceProvider::class,
     ],
 
     /*

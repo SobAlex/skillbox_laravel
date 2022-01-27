@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Policies\PostPolicy;
 use App\Post;
+use App\User;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,12 +24,18 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Gate $gate)
+    public function boot()
     {
         $this->registerPolicies();
 
-        $gate->before(function ($user) {
-            if ($user->id == 2) {
+        Gate::define('view-admin-part', function (User $user) {
+            if ($user->role_id == 1) {
+                return true;
+            }
+        });
+
+        Gate::define('edit-post', function (User $user, Post $post) {
+            if ($user->role_id == 1 || $post->owner_id == $user->id) {
                 return true;
             }
         });

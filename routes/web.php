@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Post;
 use App\Task;
 use App\Tag;
+use App\PostTag;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -12,14 +13,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PostController@index');
 
 // Теги
-Route::get('/publikacii/tags/{tag}', 'TagsController@index');
+Route::get('/publikacii/tags/{tag}', 'TagController@index');
 
 // Статьи
 Route::redirect('/publikacii', '/', 301);
-Route::get('/publikacii/sozdat-statyu', 'PostController@create')->name('postCreate');
+Route::get('/publikacii/sozdat-statyu', 'PostController@create')->middleware('auth')->name('postCreate');
 Route::get('/publikacii/{post}', 'PostController@show');
 Route::post('/publikacii', 'PostController@store');
-Route::get('/publikacii/{post}/edit', 'PostController@edit')->name('postEdit');
+Route::get('/publikacii/{post}/edit', 'PostController@edit')->middleware('can:edit-post,post')->name('postEdit');
 Route::patch('/publikacii/{post}', 'PostController@update');
 Route::delete('/publikacii/{post}', 'PostController@destroy');
 
