@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Http\Requests\PostRequest;
 use App\Notifications\PostCreate;
 use App\Notifications\PostDelete;
@@ -27,7 +28,9 @@ class PostController extends Controller
     {
         $title = 'Статья';
 
-        return view('posts.show', compact('post', 'title'));
+        $comments = Comment::where('post_id', $post->id)->get();
+
+        return view('posts.show', compact('post', 'title', 'comments'));
     }
 
     public function create()
