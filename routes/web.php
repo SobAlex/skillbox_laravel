@@ -25,7 +25,7 @@ Route::patch('/publikacii/{post}', 'PostController@update');
 Route::delete('/publikacii/{post}', 'PostController@destroy');
 
 // Комментарии
-Route::post('/publikacii/{post}', 'CommentController@store')->name('comment');
+Route::post('/publikacii/{post}', 'CommentController@store')->middleware('auth')->name('comment');
 
 // Задачи
 Route::get('/tasks', 'TaskController@index')->name('task');

@@ -18,8 +18,6 @@ class CommentController extends Controller
             'post_id' => $post->id,
         ]);
 
-
-
         flash('Комментарий добавлен!');
 
         return redirect()->back();

@@ -38,6 +38,8 @@
                     </div>
                     @enderror
 
+                    <small>Добавить комментарии могут только авторизованные пользователи</small>
+
                     <button type="submit" class="btn btn-primary">Добавить комментарий</button>
 
                 </form>
