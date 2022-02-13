@@ -8,12 +8,14 @@ use App\Post;
 
 class CommentController extends Controller
 {
-    public function store(Post $post)
+    public function store(CommentRequest $request, Post $post)
     {
-        Comment::create([
+        $data = $request->validated();
+
+        $comment = Comment::create([
+            'content' => $data['content'],
             'user_id' => auth()->id(),
             'post_id' => $post->id,
-            'content' => request('content'),
         ]);
 
 
