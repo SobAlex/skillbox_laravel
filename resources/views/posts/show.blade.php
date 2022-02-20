@@ -20,6 +20,17 @@
 
         </div>
 
+        <div class="mt-3">
+            <p><b>Изменения</b></p>
+            <p>Пользователь {{ $userEdit }} изменил поля: </p>
+            <p>Время редактирования: {{ $editTime }}</p>
+            @foreach($edits as $history)
+                <div>
+                <li>{{ $history->fieldName() }}</li>
+                </div>
+            @endforeach
+        </div>
+
         <div class="row mt-3">
             <div class="col-8">
                 <h3>Комментарии</h3>
@@ -38,12 +49,10 @@
                     </div>
                     @enderror
 
+                    <button type="submit" class="btn btn-primary">Добавить комментарий</button>
                     <small>Добавить комментарии могут только авторизованные пользователи</small>
 
-                    <button type="submit" class="btn btn-primary">Добавить комментарий</button>
-
                 </form>
-
 
             </div>
         </div>

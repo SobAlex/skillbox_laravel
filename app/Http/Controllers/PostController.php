@@ -28,9 +28,17 @@ class PostController extends Controller
     {
         $title = 'Статья';
 
+        $userEdit = auth()->user()->name;
+
         $comments = Comment::where('post_id', $post->id)->get();
 
-        return view('posts.show', compact('post', 'title', 'comments'));
+        $postEdit = Post::find($post->id);
+
+        $editTime = $postEdit->updated_at->format('m/d/Y');
+
+        $edits = $postEdit->revisionHistory;
+
+        return view('posts.show', compact('post', 'title', 'comments', 'edits', 'userEdit', 'editTime'));
     }
 
     public function create()
@@ -86,7 +94,7 @@ class PostController extends Controller
 
         flash('Сообщение изменено!');
 
-        return redirect('/');
+        return redirect('/publikacii/'. $post->id);
     }
 
     public function destroy(Post $post)
