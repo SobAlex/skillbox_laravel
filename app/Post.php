@@ -7,11 +7,13 @@ use App\Events\PostCreated;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use RevisionableTrait;
 
     public $fillable = ['owner_id', 'title', 'content', 'shortContent', 'code', 'isPublick'];
 
@@ -28,4 +30,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
 }

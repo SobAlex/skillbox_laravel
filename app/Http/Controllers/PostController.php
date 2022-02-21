@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Http\Requests\PostRequest;
 use App\Notifications\PostCreate;
 use App\Notifications\PostDelete;
@@ -27,7 +28,21 @@ class PostController extends Controller
     {
         $title = 'Статья';
 
-        return view('posts.show', compact('post', 'title'));
+        if (auth()->user()) {
+            $userEdit = auth()->user()->name;
+        } else {
+            $userEdit = 'Anonim';
+        }
+
+        $comments = Comment::where('post_id', $post->id)->get();
+
+        $postEdit = Post::find($post->id);
+
+        $editTime = $postEdit->updated_at->format('m/d/Y');
+
+        $edits = $postEdit->revisionHistory;
+
+        return view('posts.show', compact('post', 'title', 'comments', 'edits', 'userEdit', 'editTime'));
     }
 
     public function create()
@@ -83,7 +98,7 @@ class PostController extends Controller
 
         flash('Сообщение изменено!');
 
-        return redirect('/');
+        return redirect('/publikacii/'. $post->id);
     }
 
     public function destroy(Post $post)
