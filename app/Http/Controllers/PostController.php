@@ -28,7 +28,11 @@ class PostController extends Controller
     {
         $title = 'Статья';
 
-        $userEdit = auth()->user()->name;
+        if (auth()->user()) {
+            $userEdit = auth()->user()->name;
+        } else {
+            $userEdit = 'Anonim';
+        }
 
         $comments = Comment::where('post_id', $post->id)->get();
 

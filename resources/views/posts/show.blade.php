@@ -20,16 +20,18 @@
 
         </div>
 
-        <div class="mt-3">
-            <p><b>Изменения</b></p>
-            <p>Пользователь {{ $userEdit }} изменил поля: </p>
-            <p>Время редактирования: {{ $editTime }}</p>
-            @foreach($edits as $history)
-                <div>
-                <li>{{ $history->fieldName() }}</li>
-                </div>
-            @endforeach
-        </div>
+        @auth
+            <div class="mt-3">
+                <p><b>Изменения</b></p>
+                <p>Пользователь {{ $userEdit }} изменил поля: </p>
+                <p>Время редактирования: {{ $editTime }}</p>
+                @foreach($edits as $history)
+                    <div>
+                        <li>{{ $history->fieldName() }}</li>
+                    </div>
+                @endforeach
+            </div>
+        @endauth
 
         <div class="row mt-3">
             <div class="col-8">
