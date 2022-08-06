@@ -44,6 +44,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'owner_id');
     }
 
+    public function news()
+    {
+        return $this->hasMany(News::class, 'owner_id');
+    }
+
     public function roles()
     {
         return $this->belongsTo(Role::class);
@@ -51,5 +56,9 @@ class User extends Authenticatable
 
     public function comments() {
         return $this->hasMany(Comment::class);
+    }
+
+    public function commentsNews() {
+        return $this->hasMany(CommentNews::class);
     }
 }

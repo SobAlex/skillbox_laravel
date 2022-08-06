@@ -15,6 +15,7 @@ Route::get('/', 'PostController@index');
 // Теги
 Route::get('/publikacii/tags/{tag}', 'TagController@index');
 
+
 // Статьи
 Route::redirect('/publikacii', '/', 301);
 Route::get('/publikacii/sozdat-statyu', 'PostController@create')->middleware('auth')->name('postCreate');
@@ -23,6 +24,15 @@ Route::post('/publikacii', 'PostController@store');
 Route::get('/publikacii/{post}/edit', 'PostController@edit')->middleware('can:edit-post,post')->name('postEdit');
 Route::patch('/publikacii/{post}', 'PostController@update');
 Route::delete('/publikacii/{post}', 'PostController@destroy');
+
+// Новости
+Route::get('/news', 'NewsController@index')->name('news');
+Route::get('/news/create-news', 'NewsController@create')->middleware('auth')->name('newsCreate');
+Route::get('/news/{news}', 'NewsController@show');
+Route::post('/news', 'NewsController@store');
+Route::get('/news/{news}/edit', 'NewsController@edit')->middleware('can:edit-news,news')->name('newsEdit');
+Route::patch('/news/{news}', 'NewsController@update');
+Route::delete('/news/{news}', 'NewsController@destroy');
 
 // Комментарии
 Route::post('/publikacii/{post}', 'CommentController@store')->middleware('auth')->name('comment');

@@ -1,4 +1,7 @@
 /* stylelint-disable selector-list-comma-newline-after */
+.news-img {
+    width: 300px;
+}
 
 html {
     height: 100%;

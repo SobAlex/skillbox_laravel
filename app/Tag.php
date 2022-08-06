@@ -21,6 +21,11 @@ class Tag extends Model
         return $this->belongsToMany(Post::class);
     }
 
+    public function News()
+    {
+        return $this->belongsToMany(News::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'name';

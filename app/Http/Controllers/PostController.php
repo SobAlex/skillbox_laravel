@@ -10,7 +10,7 @@ use App\Notifications\PostUpdate;
 use App\Post;
 
 use App\Tag;
-use App\Services\TagsSynchronizer;
+use App\Services\TagsPostSynchronizer;
 use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
@@ -52,7 +52,7 @@ class PostController extends Controller
         return view('posts.create', compact('title'));
     }
 
-    public function store(PostRequest $request, TagsSynchronizer $tagsSynchronizer, Post $post)
+    public function store(PostRequest $request, TagsPostSynchronizer $tagsPostSynchronizer, Post $post)
     {
         $isPublick = ($request->isPublick) ? '1' : '0';
 
@@ -67,7 +67,7 @@ class PostController extends Controller
 
         auth()->user()->notify(new PostCreate($post->id));
 
-        $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
+        $tagsPostSynchronizer->sync(collect(explode(',', request('tags'))), $post);
 
         flash('Сообщение создано!');
 
@@ -81,7 +81,7 @@ class PostController extends Controller
         return view('posts.edit', compact('post', 'title'));
     }
 
-    public function update(Post $post, TagsSynchronizer $tagsSynchronizer)
+    public function update(Post $post, TagsPostSynchronizer $tagsPostSynchronizer)
     {
         $attributes = request()->validate([
             'code' => 'required|alpha_dash|unique:posts,code',
@@ -92,7 +92,7 @@ class PostController extends Controller
 
         $post->update($attributes);
 
-        $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
+        $tagsPostSynchronizer->sync(collect(explode(',', request('tags'))), $post);
 
         auth()->user()->notify(new PostUpdate($post->id));
 
