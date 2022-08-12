@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Tag;
-use App\Post;
+use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Collection;
 
 class TagsPostSynchronizer
@@ -15,12 +15,15 @@ class TagsPostSynchronizer
         $tags = $tags->keyBy(function ($item) {
             return $item;
         });
+
         $syncIds = $postTags->intersectByKeys($tags)->pluck('id')->toArray();
         $tagsToAttatch = $tags->diffKeys($postTags);
+
         foreach ($tagsToAttatch as $tag) {
             $tag = Tag::firstOrCreate(['name' => trim($tag)]);
             $syncIds[] = $tag->id;
         }
+
         $post->tags()->sync($syncIds);
     }
 }

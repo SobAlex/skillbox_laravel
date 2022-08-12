@@ -1,33 +1,27 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
-use App\Post;
-use App\Task;
-use App\Tag;
-use App\PostTag;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 // Главная страница
 Route::get('/', 'PostController@index');
 
 // Теги
-Route::get('/publikacii/tags/{tag}', 'TagController@index');
+Route::get('/posts/tags/{tag}', 'TagController@index');
 
 
 // Статьи
-Route::redirect('/publikacii', '/', 301);
-Route::get('/publikacii/sozdat-statyu', 'PostController@create')->middleware('auth')->name('postCreate');
-Route::get('/publikacii/{post}', 'PostController@show');
-Route::post('/publikacii', 'PostController@store');
-Route::get('/publikacii/{post}/edit', 'PostController@edit')->middleware('can:edit-post,post')->name('postEdit');
-Route::patch('/publikacii/{post}', 'PostController@update');
-Route::delete('/publikacii/{post}', 'PostController@destroy');
+Route::redirect('/posts', '/', 301);
+Route::get('/posts/create', 'PostController@create')->middleware('auth')->name('postCreate');
+Route::get('/posts/{post}', 'PostController@show');
+Route::post('/posts', 'PostController@store');
+Route::get('/posts/{post}/edit', 'PostController@edit')->middleware('can:edit-post,post')->name('postEdit');
+Route::patch('/posts/{post}', 'PostController@update');
+Route::delete('/posts/{post}', 'PostController@destroy');
 
 // Новости
 Route::get('/news', 'NewsController@index')->name('news');
-Route::get('/news/create-news', 'NewsController@create')->middleware('auth')->name('newsCreate');
+Route::get('/news/create', 'NewsController@create')->middleware('auth')->name('newsCreate');
 Route::get('/news/{news}', 'NewsController@show');
 Route::post('/news', 'NewsController@store');
 Route::get('/news/{news}/edit', 'NewsController@edit')->middleware('can:edit-news,news')->name('newsEdit');
@@ -35,28 +29,28 @@ Route::patch('/news/{news}', 'NewsController@update');
 Route::delete('/news/{news}', 'NewsController@destroy');
 
 // Комментарии
-Route::post('/publikacii/{post}', 'CommentController@store')->middleware('auth')->name('comment');
+Route::post('/posts/{post}', 'CommentController@store')->middleware('auth')->name('comment');
 
 // Задачи
 Route::get('/tasks', 'TaskController@index')->name('task');
-Route::get('/tasks/sozdat-zadachu', 'TaskController@create');
+Route::get('/tasks/create', 'TaskController@create');
 Route::get('/tasks/{task}', 'TaskController@show');
 Route::post('/tasks', 'TaskController@store');
-Route::get('tasks/{task}/edit', 'TaskController@edit');
+Route::get('/tasks/{task}/edit', 'TaskController@edit');
 Route::patch('/tasks/{task}', 'TaskController@update');
-Route::delete('tasks/{task}', 'TaskController@destroy');
+Route::delete('/tasks/{task}', 'TaskController@destroy');
 
 // Шаги к задачам выполнено/невыполнено
 Route::post('/tasks/{task}/steps', 'TaskStepsController@store');
-Route::post('completed-steps/{step}', 'CompletedStepsController@store');
-Route::delete('completed-steps/{step}', 'CompletedStepsController@destroy');
+Route::post('/completed-steps/{step}', 'CompletedStepsController@store');
+Route::delete('/completed-steps/{step}', 'CompletedStepsController@destroy');
 
 // Контакты
-Route::get('/kontacty', 'ContactController@index')->name('contacts');
-Route::post('/kontacty', 'ContactController@store');
-Route::get('/obrashcheniya', 'ContactController@show')->name('feedback');
+Route::get('/contacts', 'ContactController@index')->name('contacts');
+Route::post('/contacts', 'ContactController@store');
+Route::get('/feedback', 'ContactController@show')->name('feedback');
 
 // О нас
-Route::get('/o-nas', 'AboutController@index')->name('about');
+Route::get('/about', 'AboutController@index')->name('about');
 
 Auth::routes();

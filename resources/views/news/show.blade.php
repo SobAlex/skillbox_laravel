@@ -12,6 +12,7 @@
                 <p class="blog-post-meta">{{ $news->created_at->toFormattedDateString() }}</p>
                 <p>{{ $news->content }}</p>
                 <img class="news-img" src="/images/{{ $news->image }}" alt="image">
+
                 @can('edit-news', $news)
                     <a href="/news/{{ $news->id }}/edit">Изменить новость</a>
                 @endcan
@@ -26,6 +27,7 @@
                 <p><b>Изменения</b></p>
                 <p>Пользователь {{ $userEdit }} изменил поля: </p>
                 <p>Время редактирования: {{ $editTime }}</p>
+
                 @foreach($edits as $history)
                     <div>
                         <li>{{ $history->fieldName() }}</li>
@@ -56,25 +58,19 @@
                     <small>Добавить комментарии могут только авторизованные пользователи</small>
 
                 </form>
-
             </div>
         </div>
+
         <div class="row mt-3">
             <div class="col-8">
                 @foreach($comments as $comment)
-                <p class="blog-post-meta">Автор комментария: {{ $comment->user->name }}</p>
-                <p class="blog-post-meta">Дата создания комментария: {{ $comment->created_at}}</p>
-                <p>{{ $comment->content }}</p>
+                    <p class="blog-post-meta">Автор комментария: {{ $comment->user->name }}</p>
+                    <p class="blog-post-meta">Дата создания комментария: {{ $comment->created_at}}</p>
+                    <p>{{ $comment->content }}</p>
                     <hr>
                 @endforeach
             </div>
         </div>
-    </div>
-
-
-
-
-
     </div>
 
 @endsection

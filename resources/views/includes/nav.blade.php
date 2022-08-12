@@ -5,8 +5,8 @@
         <a class="p-2 text-muted" href="{{ route('about') }}">О нас</a>
         <a class="p-2 text-muted" href="{{ route('contacts') }}">Контакты</a>
         @if (Auth::check())
-        <a class="p-2 text-muted" href="{{ route('postCreate') }}">Создать статью</a>
-        <a class="p-2 text-muted" href="{{ route('newsCreate') }}">Создать новость</a>
+            <a class="p-2 text-muted" href="{{ route('postCreate') }}">Создать статью</a>
+            <a class="p-2 text-muted" href="{{ route('newsCreate') }}">Создать новость</a>
         @endif
         <a class="p-2 text-muted" href="{{ route('task') }}">Список задач</a>
         @can('view-admin-part')

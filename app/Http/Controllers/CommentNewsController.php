@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\CommentNews;
 use App\Http\Requests\CommentNewsRequest;
-use App\News;
-use Illuminate\Http\Request;
+use App\Models\CommentNews;
+use App\Models\News;
 
 class CommentNewsController extends Controller
 {

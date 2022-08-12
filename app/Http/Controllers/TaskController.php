@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
-use App\Task;
+use App\Models\Tag;
+use App\Models\Task;
 
 class TaskController extends Controller
 {

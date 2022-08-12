@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,11 +14,13 @@ class CommentNews extends Model
     protected $table = 'comments_news';
     protected $guarded = false;
 
-    public function news() {
+    public function news()
+    {
         return $this->belongsTo(News::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

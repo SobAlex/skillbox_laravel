@@ -1,24 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Events\NewsCreated;
+use App\Events\PostCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 
-class News extends Model
+class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
     use RevisionableTrait;
 
-    public $fillable = ['owner_id', 'title', 'content', 'image','isPublick'];
+    public $fillable = ['owner_id', 'title', 'content', 'shortContent', 'code', 'isPublick'];
 
-//    protected $dispatchesEvents = [
-//        'created' => NewsCreated::class,
-//    ];
+    protected $dispatchesEvents = [
+        'created' => PostCreated::class,
+    ];
 
     public function tags()
     {
@@ -30,8 +30,8 @@ class News extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments() {
-        return $this->hasMany(CommentNews::class);
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
-
 }

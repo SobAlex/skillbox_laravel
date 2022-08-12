@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
+use App\Models\Task;
 
 class TaskStepsController extends Controller
 {
     public function store(Task $task)
     {
-        $task->addStep(\request()->validate([
-            'description' => 'required|min:5'
-        ]));
+        $task->addStep(
+            \request()->validate([
+                'description' => 'required|min:5'
+            ])
+        );
+
         return back();
     }
 }

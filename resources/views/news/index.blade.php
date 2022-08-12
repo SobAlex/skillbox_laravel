@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @php
-$news = $news ?? collect();
+    $news = $news ?? collect();
 @endphp
 
 @section('content')
@@ -36,7 +36,6 @@ $news = $news ?? collect();
                     <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
                 </nav>
 
-{{--                {{ $posts->withQueryString()->links() }}--}}
             </div><!-- /.blog-main -->
 
             @include('includes.aside')

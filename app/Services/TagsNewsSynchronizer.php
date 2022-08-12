@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Tag;
-use App\News;
+use App\Models\News;
+use App\Models\Tag;
 use Illuminate\Support\Collection;
 
 class TagsNewsSynchronizer
@@ -15,12 +15,15 @@ class TagsNewsSynchronizer
         $tags = $tags->keyBy(function ($item) {
             return $item;
         });
+
         $syncIds = $newsTags->intersectByKeys($tags)->pluck('id')->toArray();
         $tagsToAttatch = $tags->diffKeys($newsTags);
+
         foreach ($tagsToAttatch as $tag) {
             $tag = Tag::firstOrCreate(['name' => trim($tag)]);
             $syncIds[] = $tag->id;
         }
+
         $news->tags()->sync($syncIds);
     }
 }

@@ -11,8 +11,9 @@
                 <h1>{{ $post->title }}</h1>
                 <p class="blog-post-meta">{{ $post->created_at->toFormattedDateString() }}</p>
                 <p>{{ $post->content }}</p>
+
                 @can('edit-post', $post)
-                    <a href="/publikacii/{{ $post->id }}/edit">Изменить статью</a>
+                    <a href="/posts/{{ $post->id }}/edit">Изменить статью</a>
                 @endcan
             </div>
 
@@ -25,6 +26,7 @@
                 <p><b>Изменения</b></p>
                 <p>Пользователь {{ $userEdit }} изменил поля: </p>
                 <p>Время редактирования: {{ $editTime }}</p>
+
                 @foreach($edits as $history)
                     <div>
                         <li>{{ $history->fieldName() }}</li>
@@ -58,22 +60,19 @@
 
             </div>
         </div>
+
         <div class="row mt-3">
             <div class="col-8">
+
                 @foreach($comments as $comment)
-                <p class="blog-post-meta">Автор комментария: {{ $comment->user->name }}</p>
-                <p class="blog-post-meta">Дата создания комментария: {{ $comment->created_at}}</p>
-                <p>{{ $comment->content }}</p>
+                    <p class="blog-post-meta">Автор комментария: {{ $comment->user->name }}</p>
+                    <p class="blog-post-meta">Дата создания комментария: {{ $comment->created_at}}</p>
+                    <p>{{ $comment->content }}</p>
                     <hr>
                 @endforeach
+
             </div>
         </div>
-    </div>
-
-
-
-
-
     </div>
 
 @endsection

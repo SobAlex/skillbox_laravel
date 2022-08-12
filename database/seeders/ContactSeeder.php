@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contact;
 use Illuminate\Database\Seeder;
-use App\Contact;
 
 class ContactSeeder extends Seeder
 {

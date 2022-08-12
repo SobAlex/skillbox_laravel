@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Step;
 use Illuminate\Database\Seeder;
-use App\Step;
 
 class StepSeeder extends Seeder
 {

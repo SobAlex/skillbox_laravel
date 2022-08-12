@@ -5,7 +5,7 @@
     <div class="container">
         <h1>Создать статью</h1>
 
-        <form method="POST" action="/publikacii">
+        <form method="POST" action="/posts">
 
             @csrf
 
@@ -17,9 +17,9 @@
             </div>
 
             @error('code')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
             @enderror
 
             <div class="form-group">
@@ -28,9 +28,9 @@
             </div>
 
             @error('title')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
             @enderror
 
             <div class="form-group">
@@ -40,9 +40,9 @@
             </div>
 
             @error('shortContent')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
             @enderror
 
             <div class="form-group">
@@ -56,7 +56,8 @@
             </div>
 
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="isPublick" value="1" name="isPublick" checked="checked">
+                <input type="checkbox" class="form-check-input" id="isPublick" value="1" name="isPublick"
+                       checked="checked">
 
                 <label class="form-check-label" for="isPublick">Опубликовать</label>
             </div>
