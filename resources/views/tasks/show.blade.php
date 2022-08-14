@@ -21,7 +21,7 @@
                             <div class="form-check">
                                 <label for="" class="form-check-label {{ $step->completed ? 'completed' : '' }}">
                                     <input type="checkbox" class="form-check-input" name="completed"
-                                        onclick="this.form.submit()" {{ $step->completed ? 'checked' : '' }}>
+                                           onclick="this.form.submit()" {{ $step->completed ? 'checked' : '' }}>
                                     {{ $step->description }}
                                 </label>
                             </div>
@@ -33,10 +33,12 @@
 
         <form method="POST" class="card card-body mb-4" action="/tasks/{{ $task->id }}/steps">
             @csrf
+
             <div class="form-group">
                 <input type="text" name="description" class="form-control" placeholder="Шаг"
-                    value="{{ old('description') }}">
+                       value="{{ old('description') }}">
             </div>
+
             <button type="submit" class="btn btn-primary">Добавить</button>
         </form>
 

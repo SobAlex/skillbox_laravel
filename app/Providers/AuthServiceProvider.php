@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\News;
+use App\Models\Post;
+use App\Models\User;
 use App\Policies\PostPolicy;
-use App\Post;
-use App\User;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
@@ -36,6 +37,12 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('edit-post', function (User $user, Post $post) {
             if ($user->role_id == 1 || $post->owner_id == $user->id) {
+                return true;
+            }
+        });
+
+        Gate::define('edit-news', function (User $user, News $news) {
+            if ($user->role_id == 1 || $news->owner_id == $user->id) {
                 return true;
             }
         });

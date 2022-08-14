@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\PostTag;
-use App\Post;
-use App\Tag;
-
+use App\Models\Post;
+use App\Models\PostTag;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class PostTagSeeder extends Seeder
@@ -17,7 +16,7 @@ class PostTagSeeder extends Seeder
      */
     public function run()
     {
-        $postCount =  Post::get()->random()->id;
+        $postCount = Post::get()->random()->id;
         $tagCount = Tag::get()->random()->id;
         $resultCount = $postCount * $tagCount;
 

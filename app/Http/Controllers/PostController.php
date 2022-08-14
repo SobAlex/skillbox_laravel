@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
 use App\Http\Requests\PostRequest;
+use App\Models\Comment;
+use App\Models\Post;
+use App\Models\Tag;
 use App\Notifications\PostCreate;
 use App\Notifications\PostDelete;
 use App\Notifications\PostUpdate;
-use App\Post;
-
-use App\Tag;
-use App\Services\TagsSynchronizer;
-use Illuminate\Support\Facades\Gate;
+use App\Services\TagsPostSynchronizer;
 
 class PostController extends Controller
 {
@@ -35,11 +33,8 @@ class PostController extends Controller
         }
 
         $comments = Comment::where('post_id', $post->id)->get();
-
         $postEdit = Post::find($post->id);
-
         $editTime = $postEdit->updated_at->format('m/d/Y');
-
         $edits = $postEdit->revisionHistory;
 
         return view('posts.show', compact('post', 'title', 'comments', 'edits', 'userEdit', 'editTime'));
@@ -52,7 +47,7 @@ class PostController extends Controller
         return view('posts.create', compact('title'));
     }
 
-    public function store(PostRequest $request, TagsSynchronizer $tagsSynchronizer, Post $post)
+    public function store(PostRequest $request, TagsPostSynchronizer $tagsPostSynchronizer)
     {
         $isPublick = ($request->isPublick) ? '1' : '0';
 
@@ -67,7 +62,7 @@ class PostController extends Controller
 
         auth()->user()->notify(new PostCreate($post->id));
 
-        $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
+        $tagsPostSynchronizer->sync(collect(explode(',', request('tags'))), $post);
 
         flash('Сообщение создано!');
 
@@ -81,7 +76,7 @@ class PostController extends Controller
         return view('posts.edit', compact('post', 'title'));
     }
 
-    public function update(Post $post, TagsSynchronizer $tagsSynchronizer)
+    public function update(Post $post, TagsPostSynchronizer $tagsPostSynchronizer)
     {
         $attributes = request()->validate([
             'code' => 'required|alpha_dash|unique:posts,code',
@@ -91,14 +86,13 @@ class PostController extends Controller
         ]);
 
         $post->update($attributes);
-
-        $tagsSynchronizer->sync(collect(explode(',', request('tags'))), $post);
+        $tagsPostSynchronizer->sync(collect(explode(',', request('tags'))), $post);
 
         auth()->user()->notify(new PostUpdate($post->id));
 
         flash('Сообщение изменено!');
 
-        return redirect('/publikacii/'. $post->id);
+        return redirect('/posts/' . $post->id);
     }
 
     public function destroy(Post $post)

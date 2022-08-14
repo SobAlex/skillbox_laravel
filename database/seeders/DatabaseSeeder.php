@@ -2,12 +2,6 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\PostTagSeeder;
-use Database\Seeders\UserSeeder;
-use Database\Seeders\PostSeeder;
-use Database\Seeders\TaskSeeder;
-use Database\Seeders\TagSeeder;
-use Database\Seeders\ContactSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-//            UserSeeder::class,
+            UserSeeder::class,
             PostSeeder::class,
             TagSeeder::class,
             PostTagSeeder::class,

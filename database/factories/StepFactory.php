@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Step;
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Step;
-use App\Task;
 
 class StepFactory extends Factory
 {

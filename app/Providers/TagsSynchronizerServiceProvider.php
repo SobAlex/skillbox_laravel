@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\TagsSynchronizer;
+use App\Services\TagsPostSynchronizer;
 
 class TagsSynchronizerServiceProvider extends ServiceProvider
 {
@@ -14,8 +14,8 @@ class TagsSynchronizerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(TagsSynchronizer::class, function () {
-            return new TagsSynchronizer;
+        $this->app->singleton(TagsPostSynchronizer::class, function () {
+            return new TagsPostSynchronizer;
         });
     }
 

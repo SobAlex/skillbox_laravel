@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\PostTag;
-use App\Post;
-use App\Tag;
-
+use App\Models\Post;
+use App\Models\PostTag;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostTagFactory extends Factory

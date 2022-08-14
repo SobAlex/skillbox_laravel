@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('includes.aside', function ($view) {
-            $view->with('tagsCloud', \App\Tag::tagsCloud());
+            $view->with('tagsCloud', \App\Models\Tag::tagsCloud());
         });
 
         Paginator::defaultView('vendor.pagination.bootstrap-4');

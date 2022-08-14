@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Contact;
-use Illuminate\Support\Facades\Gate;
-use App\Post;
+use App\Models\Contact;
+use App\Models\Post;
 use App\Services\Pushall;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ContactController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -18,13 +16,12 @@ class ContactController extends Controller
 
     public function index(Post $post)
     {
-
         if (Gate::check('view-admin-part')) {
-
             $title = 'Контакты';
 
             return view('/contacts.index', compact('title'));
         }
+
         return 'Раздел для администратора';
     }
 
@@ -50,13 +47,13 @@ class ContactController extends Controller
     public function show(Post $post)
     {
         if (Gate::check('view-admin-part')) {
-
             $title = 'Админ раздел';
             $contacts = Contact::latest()->get();
             $posts = $post->with('tags')->latest()->paginate(5);
 
             return view('/contacts.show', compact('title', 'contacts', 'posts'));
         }
+
         return 'Раздел для администратора';
     }
 }

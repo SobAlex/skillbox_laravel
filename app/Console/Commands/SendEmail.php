@@ -3,11 +3,11 @@
 namespace App\Console\Commands;
 
 use App\Mail\SendEmailToUser;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Console\Command;
-use App\User;
-use App\Post;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class SendEmail extends Command
 {
@@ -26,7 +26,8 @@ class SendEmail extends Command
             ])->get()
             : $posts = Post::all();
 
-        foreach ($users as $user) { {
+        foreach ($users as $user) {
+            {
                 Mail::fake()->to($user->email)->send(new SendEmailToUser($posts));
             }
         }
