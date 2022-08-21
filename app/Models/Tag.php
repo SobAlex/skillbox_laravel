@@ -11,19 +11,14 @@ class Tag extends Model
 
     protected $guarded = [];
 
-    public function Tasks()
-    {
-        return $this->belongsToMany(Task::class);
-    }
-
     public function Posts()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->morphedByMany(Post::class, 'taggable');
     }
 
     public function News()
     {
-        return $this->belongsToMany(News::class);
+        return $this->morphedByMany(News::class, 'taggable');
     }
 
     public function getRouteKeyName()

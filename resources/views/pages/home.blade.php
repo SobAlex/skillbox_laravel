@@ -36,7 +36,6 @@
                     <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
                 </nav>
 
-                {{ $posts->withQueryString()->links() }}
             </div><!-- /.blog-main -->
 
             @include('includes.aside')
