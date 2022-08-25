@@ -26,8 +26,15 @@ class Tag extends Model
         return 'name';
     }
 
-    public static function tagsCloud()
+    public static function tagsPostsCloud()
     {
         return (new static)->Has('posts')->get();
     }
+
+    public static function tagsNewsCloud()
+    {
+        return (new static)->Has('news')->get();
+    }
+
+
 }

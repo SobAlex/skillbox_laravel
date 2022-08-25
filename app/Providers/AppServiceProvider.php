@@ -25,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('includes.aside', function ($view) {
-            $view->with('tagsCloud', \App\Models\Tag::tagsCloud());
+            $view->with('tagsPostsCloud', \App\Models\Tag::tagsPostsCloud());
+            $view->with('tagsNewsCloud', \App\Models\Tag::tagsNewsCloud());
         });
 
         Paginator::defaultView('vendor.pagination.bootstrap-4');

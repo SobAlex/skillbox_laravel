@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\News;
 
 class TagController extends Controller
 {
@@ -12,12 +13,12 @@ class TagController extends Controller
             $query->where('name', $tag);
         })->latest();
 
-//        $news = News::whereHas('tags', function ($query) use ($tag) {
-//            $query->where('name', $tag);
-//        })->latest();
+        $news = News::whereHas('tags', function ($query) use ($tag) {
+            $query->where('name', $tag);
+        })->latest();
 
         $title = 'Записи с тегом ' . $tag;
 
-        return view('pages.home', compact('posts', 'title'));
+        return view('pages.home', compact('posts', 'news', 'title'));
     }
 }
