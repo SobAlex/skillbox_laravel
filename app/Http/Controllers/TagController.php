@@ -4,21 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\News;
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Builder;
 
 class TagController extends Controller
 {
     public function index($tag)
     {
-        $posts = Post::whereHas('tags', function ($query) use ($tag) {
-            $query->where('name', $tag);
-        })->latest();
+        $articles = Tag::whereHasMorph(
+            'taggable',
+            [Post::class, News::class],
+            function (Builder $query) use ($tag) {
+                $query->where('name', $tag);
+            }
+        )->latest();
 
-        $news = News::whereHas('tags', function ($query) use ($tag) {
-            $query->where('name', $tag);
-        })->latest();
+        dd($articles);
 
         $title = 'Записи с тегом ' . $tag;
 
-        return view('pages.home', compact('posts', 'news', 'title'));
+        return view('pages.home', compact('articles', 'title'));
     }
 }

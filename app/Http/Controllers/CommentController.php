@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
-use App\Models\Comment;
+use App\Models\CommentPosts;
 use App\Models\Post;
 
 class CommentController extends Controller
@@ -12,7 +12,7 @@ class CommentController extends Controller
     {
         $data = $request->validated();
 
-        $comment = Comment::create([
+        $comment = CommentPosts::create([
             'content' => $data['content'],
             'user_id' => auth()->id(),
             'post_id' => $post->id,

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
-use App\Models\Comment;
+use App\Models\CommentPosts;
 use App\Models\Post;
 use App\Models\News;
 use App\Models\Tag;
@@ -34,7 +34,7 @@ class PostController extends Controller
             $userEdit = 'Anonim';
         }
 
-        $comments = Comment::where('post_id', $post->id)->get();
+        $comments = CommentPosts::where('post_id', $post->id)->get();
         $postEdit = Post::find($post->id);
         $editTime = $postEdit->updated_at->format('m/d/Y');
         $edits = $postEdit->revisionHistory;

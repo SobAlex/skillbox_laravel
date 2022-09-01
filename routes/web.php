@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PostController@index');
 
 // Теги
-Route::get('/posts/tags/{tag}', 'TagController@index');
-
+Route::get('/articles/tags/{tag}', 'TagController@index');
 
 // Статьи
 Route::redirect('/posts', '/', 301);

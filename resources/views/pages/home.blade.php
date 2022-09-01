@@ -2,6 +2,7 @@
 
 @php
     $posts = $posts ?? collect();
+    $news = $news ?? collect();
 @endphp
 
 @section('content')
@@ -19,7 +20,7 @@
                 @foreach ($posts as $post)
                     @if ($post->isPublick)
                         <ul>
-                            @include('tasks.tags', ['tags' => $post->tags])
+                            @include('posts.tags', ['tags' => $post->tags])
                         </ul>
 
                         <div class="blog-post">
@@ -36,7 +37,7 @@
                     <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
                 </nav>
 
-            </div><!-- /.blog-main -->
+            </div>
 
             <div class="col-md-4 blog-main">
                 <h3 class="pb-3 mb-4 font-italic border-bottom">
@@ -44,9 +45,9 @@
                 </h3>
 
                 @foreach ($news as $new)
-                    @if ($post->isPublick)
+                    @if ($new->isPublick)
                         <ul>
-                            @include('tasks.tags', ['tags' => $new->tags])
+                            @include('news.tags', ['tags' => $new->tags])
                         </ul>
 
                         <div class="blog-post">
@@ -62,7 +63,7 @@
                     <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
                 </nav>
 
-            </div><!-- /.blog-main -->
+            </div>
 
             @include('includes.aside')
 
