@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
-use App\Models\CommentPosts;
-use App\Models\Post;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    public function store(CommentRequest $request, Post $post)
+    public function store(CommentRequest $request)
     {
         $data = $request->validated();
 
-        $comment = CommentPosts::create([
+        $comment = Comment::create([
             'content' => $data['content'],
-            'user_id' => auth()->id(),
-            'post_id' => $post->id,
+            'owner_id' => auth()->id(),
+            'commentable_type' => 'App\Models\News',
+            'commentable_id' => 1
         ]);
+
+//        dd($comment);
 
         flash('Комментарий добавлен!');
 

@@ -39,7 +39,7 @@
             <div class="col-8">
                 <h3>Комментарии</h3>
 
-                <form method="POST" action="{{ route('comment', $post->id) }}">
+                <form method="POST" action="{{ route('commentPost', $post->id) }}">
 
                     @csrf
 

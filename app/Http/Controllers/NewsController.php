@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsRequest;
-use App\Models\CommentNews;
+use App\Models\Comment;
 use App\Models\News;
 use App\Models\Tag;
 use App\Notifications\NewsCreate;
@@ -56,7 +56,7 @@ class NewsController extends Controller
             $userEdit = 'Anonim';
         }
 
-        $comments = CommentNews::where('news_id', $news->id)->get();
+        $comments = $news->comments();
         $newsEdit = News::find($news->id);
         $editTime = $newsEdit->updated_at->format('m/d/Y');
         $edits = $newsEdit->revisionHistory;

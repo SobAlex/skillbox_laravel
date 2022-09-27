@@ -30,10 +30,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with('tagsNewsCloud', \App\Models\Tag::tagsNewsCloud());
         });
 
-//        Relation::morphMap([
+        Relation::morphMap([
 //            'posts' => \App\Models\Post::class,
-//            'news' => \App\Models\News::class
-//        ]);
+//            'news' => \App\Models\News::class,
+//            'comments' => \App\Models\Comment::class
+        ]);
 
         Paginator::defaultView('vendor.pagination.bootstrap-4');
     }

@@ -28,7 +28,8 @@ Route::patch('/news/{news}', 'NewsController@update');
 Route::delete('/news/{news}', 'NewsController@destroy');
 
 // Комментарии
-Route::post('/posts/{post}', 'CommentController@store')->middleware('auth')->name('comment');
+Route::post('/posts/{post}', 'CommentController@store')->middleware('auth')->name('commentPost');
+Route::post('/news/{news}', 'CommentController@store')->middleware('auth')->name('commentNews');
 
 // Задачи
 Route::get('/tasks', 'TaskController@index')->name('task');

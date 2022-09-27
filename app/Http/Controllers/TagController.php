@@ -11,18 +11,11 @@ class TagController extends Controller
 {
     public function index($tag)
     {
-        $articles = Tag::whereHasMorph(
-            'taggable',
-            [Post::class, News::class],
-            function (Builder $query) use ($tag) {
-                $query->where('name', $tag);
-            }
-        )->latest();
-
-        dd($articles);
-
+        $tagModel = Tag::where('name', $tag)->first();
+        $posts = $tagModel->posts;
+        $news = $tagModel->news;
         $title = 'Записи с тегом ' . $tag;
 
-        return view('pages.home', compact('articles', 'title'));
+        return view('pages.home', compact('posts', 'news', 'title'));
     }
 }
