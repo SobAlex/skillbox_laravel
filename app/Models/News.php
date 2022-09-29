@@ -30,4 +30,9 @@ class News extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function type()
+    {
+        return 'news';
+    }
 }

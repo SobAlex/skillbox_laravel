@@ -34,9 +34,8 @@ class PostController extends Controller
             $userEdit = 'Anonim';
         }
 
-
-        $comments = $post->comments();
         $postEdit = Post::find($post->id);
+        $comments = $postEdit->comments();
         $editTime = $postEdit->updated_at->format('m/d/Y');
         $edits = $postEdit->revisionHistory;
 

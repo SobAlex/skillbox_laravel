@@ -58,11 +58,6 @@ class User extends Authenticatable
 
     public function comments()
     {
-        return $this->hasMany(CommentPosts::class);
-    }
-
-    public function commentsNews()
-    {
-        return $this->hasMany(CommentNews::class);
+        return $this->hasMany(Comment::class);
     }
 }

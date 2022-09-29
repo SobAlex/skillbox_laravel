@@ -46,7 +46,7 @@ class NewsController extends Controller
         return redirect('/news');
     }
 
-    public function show(News $news)
+    public function show(News $news, Comment $comment)
     {
         $title = 'Новость';
 
@@ -56,8 +56,8 @@ class NewsController extends Controller
             $userEdit = 'Anonim';
         }
 
-        $comments = $news->comments();
         $newsEdit = News::find($news->id);
+        $comments = $newsEdit->comments();
         $editTime = $newsEdit->updated_at->format('m/d/Y');
         $edits = $newsEdit->revisionHistory;
 
