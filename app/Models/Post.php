@@ -34,9 +34,4 @@ class Post extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
-
-    public function type()
-    {
-        return 'post';
-    }
 }

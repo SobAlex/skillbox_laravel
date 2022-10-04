@@ -46,7 +46,7 @@ class NewsController extends Controller
         return redirect('/news');
     }
 
-    public function show(News $news, Comment $comment)
+    public function show(News $news)
     {
         $title = 'Новость';
 
@@ -57,11 +57,12 @@ class NewsController extends Controller
         }
 
         $newsEdit = News::find($news->id);
-        $comments = $newsEdit->comments();
+        $comments = $newsEdit->comments;
+//        dd($newsEdit);
         $editTime = $newsEdit->updated_at->format('m/d/Y');
         $edits = $newsEdit->revisionHistory;
 
-        return view('news.show', compact('news', 'title', 'comments', 'edits', 'userEdit', 'editTime'));
+        return view('news.show', compact('news', 'title', 'comments', 'edits', 'userEdit', 'editTime', 'newsEdit'));
     }
 
     public function edit(News $news)

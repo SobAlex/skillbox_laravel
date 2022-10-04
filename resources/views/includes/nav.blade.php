@@ -3,6 +3,7 @@
         <a class="p-2 text-muted" href="/">Главная</a>
         <a class="p-2 text-muted" href="{{ route('news') }}">Новости</a>
         <a class="p-2 text-muted" href="{{ route('about') }}">О нас</a>
+        <a class="p-2 text-muted" href="{{ route('statistics') }}">Статистика</a>
         <a class="p-2 text-muted" href="{{ route('contacts') }}">Контакты</a>
         @if (Auth::check())
             <a class="p-2 text-muted" href="{{ route('postCreate') }}">Создать статью</a>

@@ -9,11 +9,9 @@ use App\Models\News;
 
 class CommentController extends Controller
 {
-    public function store(CommentRequest $request, Post $post, News $news)
+    public function storePost(CommentRequest $request, Post $post)
     {
         $data = $request->validated();
-
-        $bool = ($post->id) ? true : false;
 
         $comment = Comment::create([
             'content' => $data['content'],
@@ -22,13 +20,25 @@ class CommentController extends Controller
             'commentable_id' => 1
         ]);
 
-        if ($bool) {
-            $collect = Post::find($post->id);
-        } else {
-            $collect = News::find($news->id);
-        }
+        $post->comments()->save($comment);
 
-        $collect->comments()->save($comment);
+        flash('Комментарий добавлен!');
+
+        return redirect()->back();
+    }
+
+    public function storeNews(CommentRequest $request, News $news)
+    {
+        $data = $request->validated();
+
+        $comment = Comment::create([
+            'content' => $data['content'],
+            'owner_id' => auth()->id(),
+            'commentable_type' => '',
+            'commentable_id' => 1
+        ]);
+
+        $news->comments()->save($comment);
 
         flash('Комментарий добавлен!');
 
