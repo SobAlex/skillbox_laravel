@@ -34,23 +34,23 @@
             </tr>
             <tr>
                 <th scope="row">Самая длинная статья:</th>
-                <td>Larry</td>
+                <td><a href="{{ url('posts') }}/{{ $maxContent->id }}">{{ $maxContent->title }}</a></td>
             </tr>
             <tr>
                 <th scope="row">Самая короткая статья:</th>
-                <td>Larry</td>
+                <td><a href="{{ url('posts') }}/{{ $minContent->id }}">{{ $minContent->title }}</a></td>
             </tr>
             <tr>
                 <th scope="row">Средние количество статей у активных пользователей:</th>
-                <td>Larry</td>
+                <td>{{ $avgCountPosts }}</td>
             </tr>
             <tr>
-                <th scope="row">Самая непостоянная:</th>
+                <th scope="row">Самая непостоянная статья:</th>
                 <td>Larry</td>
             </tr>
             <tr>
                 <th scope="row">Самая обсуждаемая статья:</th>
-                <td>Larry</td>
+                <td><a href="{{ url('posts') }}/{{ $maxCommentsPost->id }}">{{ $maxCommentsPost->title }}</a></td>
             </tr>
             </tbody>
         </table>

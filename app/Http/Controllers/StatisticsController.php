@@ -18,6 +18,10 @@ class StatisticsController extends Controller
         $postsCount = Post::count();
         $newsCount = News::count();
 
+        $maxCommentsPost = Post::withCount('comments')
+            ->orderBy('comments_count', 'desc')
+            ->first();
+
         $userMaxCountPosts = User::withCount('posts')
             ->orderBy('posts_count', 'desc')
             ->first()->name;
@@ -26,23 +30,14 @@ class StatisticsController extends Controller
             ->orderBy('news_count', 'desc')
             ->first()->name;
 
-        $contents = DB::table('posts')->pluck('content');
+        $maxContent = DB::table('posts')->orderByraw('LENGTH(content) DESC')->first();
+        $minContent = DB::table('posts')->orderByraw('LENGTH(content) ASC')->first();
 
-        $counter = collect([['count' => 10], ['count' => 20]]);
-
-        $counter->max('count');
-
-//        foreach ($contents as $content) {
-//
-//            $arr[] = strlen($content);
-//            print_r(max($arr));
-//        }
-
-//        $postMaxContent = DB::table('posts')->where('content', 11)->first();
-//        dd($postMaxContent);
+        $userCountPosts = User::WithCount('posts')->get();
+        $avgCountPosts = $userCountPosts->avg('posts_count');
 
 
 
-        return view('pages.statistics', compact('postsCount', 'newsCount', 'userMaxCountPosts', 'userMaxCountNews'));
+        return view('pages.statistics', compact('postsCount', 'avgCountPosts', 'maxCommentsPost', 'newsCount', 'userMaxCountPosts', 'userMaxCountNews', 'maxContent', 'minContent'));
     }
 }
