@@ -46,7 +46,7 @@
             </tr>
             <tr>
                 <th scope="row">Самая непостоянная статья:</th>
-                <td>Larry</td>
+                <td><a href="{{ url('posts') }}/{{ $theMostChangePost->id }}">{{ $theMostChangePost->title }}</a></td>
             </tr>
             <tr>
                 <th scope="row">Самая обсуждаемая статья:</th>

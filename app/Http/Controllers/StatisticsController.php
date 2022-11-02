@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Models\Comment;
-use App\Models\Task;
 use App\Models\News;
 use App\Models\Post;
-use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
 
 class StatisticsController extends Controller
@@ -36,8 +32,14 @@ class StatisticsController extends Controller
         $userCountPosts = User::WithCount('posts')->get();
         $avgCountPosts = $userCountPosts->avg('posts_count');
 
+        $maxCountSameId = DB::table('revisions')
+            ->select('revisionable_id', DB::raw('count(*) as total'))
+            ->groupBy('revisionable_id')
+            ->orderBy('total', 'desc')
+            ->first();
 
+        $theMostChangePost = Post::find($maxCountSameId->revisionable_id);
 
-        return view('pages.statistics', compact('postsCount', 'avgCountPosts', 'maxCommentsPost', 'newsCount', 'userMaxCountPosts', 'userMaxCountNews', 'maxContent', 'minContent'));
+        return view('pages.statistics', compact('postsCount', 'theMostChangePost', 'avgCountPosts', 'maxCommentsPost', 'newsCount', 'userMaxCountPosts', 'userMaxCountNews', 'maxContent', 'minContent'));
     }
 }
