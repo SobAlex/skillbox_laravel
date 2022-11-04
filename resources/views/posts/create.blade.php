@@ -52,7 +52,7 @@
 
             <div class="form-group">
                 <label for="inputTags">Теги</label>
-                <input class="form-control" type="text" id="inputTags" name="tags"></input>
+                <input class="form-control" type="text" id="inputTags" name="tags">
             </div>
 
             <div class="form-group form-check">

@@ -11,19 +11,19 @@ class Tag extends Model
 
     protected $guarded = [];
 
-    public function Tasks()
-    {
-        return $this->belongsToMany(Task::class);
-    }
-
     public function Posts()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->morphedByMany(Post::class, 'taggable');
     }
 
     public function News()
     {
-        return $this->belongsToMany(News::class);
+        return $this->morphedByMany(News::class, 'taggable');
+    }
+
+    public function Tasks()
+    {
+        return $this->morphedByMany(Task::class, 'taggable');
     }
 
     public function getRouteKeyName()
@@ -31,8 +31,15 @@ class Tag extends Model
         return 'name';
     }
 
-    public static function tagsCloud()
+    public static function tagsPostsCloud()
     {
         return (new static)->Has('posts')->get();
     }
+
+    public static function tagsNewsCloud()
+    {
+        return (new static)->Has('news')->get();
+    }
+
+
 }

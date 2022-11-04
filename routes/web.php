@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CommentController;
 
 // Главная страница
 Route::get('/', 'PostController@index');
 
 // Теги
-Route::get('/posts/tags/{tag}', 'TagController@index');
-
+Route::get('/articles/tags/{tag}', 'TagController@index');
 
 // Статьи
 Route::redirect('/posts', '/', 301);
@@ -29,7 +29,8 @@ Route::patch('/news/{news}', 'NewsController@update');
 Route::delete('/news/{news}', 'NewsController@destroy');
 
 // Комментарии
-Route::post('/posts/{post}', 'CommentController@store')->middleware('auth')->name('comment');
+Route::post('/posts/{post}', 'CommentController@storePost')->middleware('auth')->name('commentPost');
+Route::post('/news/{news}', 'CommentController@storeNews')->middleware('auth')->name('commentNews');
 
 // Задачи
 Route::get('/tasks', 'TaskController@index')->name('task');
@@ -52,5 +53,8 @@ Route::get('/feedback', 'ContactController@show')->name('feedback');
 
 // О нас
 Route::get('/about', 'AboutController@index')->name('about');
+
+// Статистика
+Route::get('/statistics', 'StatisticsController@index')->name('statistics');
 
 Auth::routes();

@@ -50,7 +50,7 @@
                             <h2 class="blog-post-title">{{ $post->title }}</h2>
                             <p class="blog-post-meta">{{ $post->created_at->format('d.m.Y H:i:s') }}</p>
                             <p>{{ $post->shortContent }}</p>
-                            <a href="{{ url('publikacii') }}/{{ $post->id }}">Читать статью</a>
+                            <a href="{{ url('posts') }}/{{ $post->id }}">Читать статью</a>
                         </div><!-- /.blog-post -->
                     @endif
                 @endforeach

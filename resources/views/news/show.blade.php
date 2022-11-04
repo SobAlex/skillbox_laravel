@@ -40,7 +40,7 @@
             <div class="col-8">
                 <h3>Комментарии</h3>
 
-                <form method="POST" action="{{ route('comment', $news->id) }}">
+                <form method="POST" action="{{ route('commentNews', $news->id) }}">
 
                     @csrf
 
@@ -64,7 +64,7 @@
         <div class="row mt-3">
             <div class="col-8">
                 @foreach($comments as $comment)
-                    <p class="blog-post-meta">Автор комментария: {{ $comment->user->name }}</p>
+{{--                    <p class="blog-post-meta">Автор комментария: {{ $comment->user->name }}</p>--}}
                     <p class="blog-post-meta">Дата создания комментария: {{ $comment->created_at}}</p>
                     <p>{{ $comment->content }}</p>
                     <hr>
