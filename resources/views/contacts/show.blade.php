@@ -9,6 +9,14 @@
     <main role="main" class="container">
         <div class="row">
             <h3 class="pb-3 mb-4 font-italic border-bottom">
+                Отчеты
+            </h3>
+            <div class="col">
+                <a href="{{ route('reports') }}">Итого</a>
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="pb-3 mb-4 font-italic border-bottom">
                 Сообщения пользователей
             </h3>
             <table class="table">
