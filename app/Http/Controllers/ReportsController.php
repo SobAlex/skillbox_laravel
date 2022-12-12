@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\StatisticReports;
 use App\Models\News;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Comment;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class ReportsController extends Controller
 {
@@ -15,69 +17,13 @@ class ReportsController extends Controller
     {
         $title = 'Отчеты';
 
-        $postsCount = Post::count();
-        $newsCount = News::count();
-        $tagsCount = Tag::count();
-        $commentsCount = Comment::count();
-        $usersCount = User::count();
-
-        return view('pages.reports', compact('title', 'postsCount', 'newsCount', 'tagsCount', 'commentsCount', 'usersCount'));
+        return view('pages.reports', compact('title'));
     }
 
-    public function getExport(Post $posts, News $news, Tag $tag, Comment $comment, User $user)
+    public function getExport(Request $request)
     {
+        $data = $request->all();
 
-        $data[] = [
-            $postsCount = Post::count(),
-            $newsCount = News::count(),
-            $tagsCount = Tag::count(),
-            $commentsCount = Comment::count(),
-            $usersCount = User::count()
-        ];
-
-
-
-        return Excel::create('yourfilename', function($excel) use ($data) {
-            $excel->sheet('mySheet', function($sheet) use ($data)
-            {
-                $sheet->cell('A1:C1',function($cell)
-                {
-                    $cell->setAlignment('center');
-                    $cell->setFontWeight('bold');
-                });
-
-                $sheet->cell('A:C',function($cell)
-                {
-                    $cell->setAlignment('center');
-                });
-
-                $sheet->cell('A1', function($cell)
-                {
-                    $cell->setValue('S.No');
-
-                });
-                $sheet->cell('B1', function($cell)
-                {
-                    $cell->setValue('Name');
-                });
-                $sheet->cell('C1', function($cell)
-                {
-                    $cell->setValue('Father Name');
-                });
-                if (!empty($data)) {
-                    $sno=1;
-                    foreach ($data as $key => $value)
-                    {
-                        $i= $key+2;
-                        $sheet->cell('A'.$i, $sno);
-                        $sheet->cell('B'.$i, $value['name']);
-                        $sheet->cell('C'.$i, $value['fathername']);
-                        $sno++;
-                    }
-                }
-            });
-        })->download(xlsx);
-
-//        return view('pages.exportsDone');
+        StatisticReports::dispatchNow($data);
     }
 }

@@ -9,31 +9,31 @@
 @endphp
 
 @section('content')
-
     <main role="main" class="container">
-        <form action="{{ route('getExport', [$postsCount, $newsCount, $commentsCount]) }}">
+        <form action="{{ route('getExport') }}" method="POST">
+            @csrf
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{ $postsCount }}" name="postsCount">
+                <input class="form-check-input" type="checkbox" name="postsCount">
                 <label>Статьи</label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{ $newsCount }}" name="newsCount">
+                <input class="form-check-input" type="checkbox" name="newsCount">
                 <label>Новости</label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{ $commentsCount }}" name="commentsCount">
+                <input class="form-check-input" type="checkbox" name="commentsCount">
                 <label>Комментарии</label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{ $tagsCount }}" name="tagsCount">
+                <input class="form-check-input" type="checkbox" name="tagsCount">
                 <label>Теги</label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{ $usersCount }}" name="usersCount">
+                <input class="form-check-input" type="checkbox" name="usersCount">
                 <label>Пользователи</label>
             </div>
             <br>
@@ -41,6 +41,4 @@
         </form>
 
     </main><!-- /.container -->
-
 @endsection
-

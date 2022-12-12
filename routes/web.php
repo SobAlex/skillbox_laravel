@@ -56,7 +56,7 @@ Route::get('/about', 'AboutController@index')->name('about');
 
 // Отчеты
 Route::get('/reports', 'ReportsController@index')->name('reports');
-Route::get('/exports', 'ReportsController@getExport')->name('getExport');
+Route::post('/exports', 'ReportsController@getExport')->name('getExport');
 
 // Статистика
 Route::get('/statistics', 'StatisticsController@index')->name('statistics');
