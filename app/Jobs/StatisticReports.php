@@ -31,11 +31,35 @@ class StatisticReports implements ShouldQueue
      */
     public function __construct($data)
     {
-        $this->postsCount ? $data['postsCount'] : false;
-        $this->newsCount ? $data['newsCount'] : false;
-        $this->tagsCount ? $data['tagsCount'] : false;
-        $this->commentsCount ? $data['commentsCount'] : false;
-        $this->usersCount ? $data['usersCount'] : false;
+        if (isset($data['postsCount'])) {
+            $this->postsCount = Post::count();
+        } else {
+            $this->postsCount = "не отмечено";
+        };
+
+        if (isset($data['newsCount'])) {
+            $this->newsCount = News::count();
+        } else {
+            $this->newsCount = "не отмечено";
+        };
+
+        if (isset($data['tagsCount'])) {
+            $this->tagsCount = Tag::count();
+        } else {
+            $this->tagsCount = "не отмечено";
+        };
+
+        if (isset($data['commentsCount'])) {
+            $this->commentsCount = Comment::count();
+        } else {
+            $this->commentsCount = "не отмечено";
+        };
+
+        if (isset($data['usersCount'])) {
+            $this->usersCount = User::count();
+        } else {
+            $this->usersCount = "не отмечено";
+        };
     }
 
     /**
@@ -45,6 +69,6 @@ class StatisticReports implements ShouldQueue
      */
     public function handle()
     {
-        echo "кол-во постов: $postsCount, кол-во новостей: $newsCount, кол-во тегов: $tagsCount, кол-во комментов: $commentsCount, кол-во юзеров: $usersCount,";
+        echo "кол-во постов: $this->postsCount, кол-во новостей: $this->newsCount, кол-во тегов: $this->tagsCount, кол-во комментов: $this->commentsCount, кол-во юзеров: $this->usersCount,";
     }
 }

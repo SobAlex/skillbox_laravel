@@ -24,6 +24,6 @@ class ReportsController extends Controller
     {
         $data = $request->all();
 
-        StatisticReports::dispatchNow($data);
+        StatisticReports::dispatchSync($data);
     }
 }
