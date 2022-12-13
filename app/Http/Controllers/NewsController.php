@@ -58,7 +58,6 @@ class NewsController extends Controller
 
         $newsEdit = News::find($news->id);
         $comments = $newsEdit->comments;
-//        dd($newsEdit);
         $editTime = $newsEdit->updated_at->format('m/d/Y');
         $edits = $newsEdit->revisionHistory;
 

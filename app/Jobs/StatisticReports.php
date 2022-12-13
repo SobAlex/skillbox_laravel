@@ -7,12 +7,16 @@ use App\Models\News;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
+use App\Notifications\ReportsCreate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+
 
 class StatisticReports implements ShouldQueue
 {
@@ -69,6 +73,8 @@ class StatisticReports implements ShouldQueue
      */
     public function handle()
     {
+        auth()->user()->notify(new ReportsCreate("отчет тест значение"));
+
         echo "кол-во постов: $this->postsCount, кол-во новостей: $this->newsCount, кол-во тегов: $this->tagsCount, кол-во комментов: $this->commentsCount, кол-во юзеров: $this->usersCount,";
     }
 }

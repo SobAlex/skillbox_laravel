@@ -20,10 +20,10 @@ class ReportsController extends Controller
         return view('pages.reports', compact('title'));
     }
 
-    public function getExport(Request $request)
+    public function getExport(Request $request, User $user)
     {
         $data = $request->all();
 
-        StatisticReports::dispatchSync($data);
+        StatisticReports::dispatchNow($data, $user);
     }
 }
