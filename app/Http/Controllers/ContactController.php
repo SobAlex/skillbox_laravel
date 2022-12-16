@@ -47,11 +47,10 @@ class ContactController extends Controller
     public function show(Post $post)
     {
         if (Gate::check('view-admin-part')) {
-            $title = 'Админ раздел';
             $contacts = Contact::latest()->get();
             $posts = $post->with('tags')->latest()->paginate(5);
 
-            return view('/contacts.show', compact('title', 'contacts', 'posts'));
+            return view('/contacts.show', compact('contacts', 'posts'));
         }
 
         return 'Раздел для администратора';

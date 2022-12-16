@@ -15,15 +15,16 @@ class ReportsController extends Controller
 
     public function index()
     {
-        $title = 'Отчеты';
-
-        return view('pages.reports', compact('title'));
+        return view('pages.reports');
     }
 
-    public function getExport(Request $request, User $user)
+    public function getExport(Request $request)
     {
         $data = $request->all();
 
-        StatisticReports::dispatchNow($data, $user);
+        $user = auth()->user();
+        $userEmail = $user->email;
+
+        StatisticReports::dispatch($userEmail, $data);
     }
 }

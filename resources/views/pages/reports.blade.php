@@ -1,12 +1,4 @@
-@extends('layouts.master')
-
-@php
-    $posts = $posts ?? collect();
-    $news = $news ?? collect();
-    $comments = $comment ?? collect();
-    $tags = $tag ?? collect();
-    $users = $user ?? collect();
-@endphp
+@extends('layouts.master', ['title' => 'Отчеты'])
 
 @section('content')
     <main role="main" class="container">

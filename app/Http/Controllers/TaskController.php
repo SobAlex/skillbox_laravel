@@ -9,17 +9,14 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $title = 'Список задач';
         $tasks = Task::with('tags')->latest()->get();
         $tags = Tag::all();
 
-        return view('tasks.index', compact('tasks', 'title', 'tags'));
+        return view('tasks.index', compact('tasks', 'tags'));
     }
 
     public function show(Task $task)
     {
-        $title = 'Задача';
-
-        return view('tasks.show', compact('task', 'title'));
+        return view('tasks.show', compact('task'));
     }
 }

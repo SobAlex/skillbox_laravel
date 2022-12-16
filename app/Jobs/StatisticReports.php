@@ -16,6 +16,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Mail;
 
 
 class StatisticReports implements ShouldQueue
@@ -27,14 +28,26 @@ class StatisticReports implements ShouldQueue
     public $tagsCount;
     public $commentsCount;
     public $usersCount;
+    public $userEmail;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($userEmail)
     {
+        $this->$userEmail = $userEmail;
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle($data)
+    {
+
         if (isset($data['postsCount'])) {
             $this->postsCount = Post::count();
         } else {
@@ -64,16 +77,8 @@ class StatisticReports implements ShouldQueue
         } else {
             $this->usersCount = "не отмечено";
         };
-    }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        auth()->user()->notify(new ReportsCreate("отчет тест значение"));
+        Mail::to($this->$userEmail)->send(new ReportsCreate("отчет тест значение"));
 
         echo "кол-во постов: $this->postsCount, кол-во новостей: $this->newsCount, кол-во тегов: $this->tagsCount, кол-во комментов: $this->commentsCount, кол-во юзеров: $this->usersCount,";
     }

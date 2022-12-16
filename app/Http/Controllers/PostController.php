@@ -44,9 +44,7 @@ class PostController extends Controller
 
     public function create()
     {
-        $title = 'Создать статью';
-
-        return view('posts.create', compact('title'));
+        return view('posts.create');
     }
 
     public function store(PostRequest $request, TagsPostSynchronizer $tagsPostSynchronizer)
@@ -73,9 +71,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        $title = 'Редактировать статью';
-
-        return view('posts.edit', compact('post', 'title'));
+        return view('posts.edit', compact('post'));
     }
 
     public function update(Post $post, TagsPostSynchronizer $tagsPostSynchronizer)
