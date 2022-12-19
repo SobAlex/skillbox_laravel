@@ -20,7 +20,7 @@ class ReportsController extends Controller
 
     public function getExport(Request $request)
     {
-        $data = $request->all();
+        $data = json_encode($request->all());
 
         $user = auth()->user();
         $userEmail = $user->email;

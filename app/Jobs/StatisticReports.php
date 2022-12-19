@@ -23,21 +23,18 @@ class StatisticReports implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $postsCount;
-    public $newsCount;
-    public $tagsCount;
-    public $commentsCount;
-    public $usersCount;
-    public $userEmail;
+    public $data;
+    // public $data = [];
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($userEmail)
+    public function __construct($userEmail, $data)
     {
         $this->$userEmail = $userEmail;
+        $this->$data = $data;
     }
 
     /**
@@ -45,38 +42,37 @@ class StatisticReports implements ShouldQueue
      *
      * @return void
      */
-    public function handle($data)
+    public function handle()
     {
+        $dataD = json_decode($this->$data);
+        dd($dataD);
+        $postsCount = $dataD['postsCount'];
+        $newsCount = $dataD['newsCount'];
+        $tagsCount = $dataD['tagsCount'];
+        $commentsCount = $dataD['commentsCount'];
+        $usersCount = $dataD['usersCount'];
 
-        if (isset($data['postsCount'])) {
-            $this->postsCount = Post::count();
-        } else {
-            $this->postsCount = "не отмечено";
-        };
+        if (!isset($data['postsCount'])) {
+            $postsCount = "не отмечено";
+        }
 
-        if (isset($data['newsCount'])) {
-            $this->newsCount = News::count();
-        } else {
-            $this->newsCount = "не отмечено";
-        };
+        if (!isset($data['newsCount'])) {
+            $newsCount = "не отмечено";
+        }
 
-        if (isset($data['tagsCount'])) {
-            $this->tagsCount = Tag::count();
-        } else {
-            $this->tagsCount = "не отмечено";
-        };
+        if (!isset($data['tagsCount'])) {
+            $tagsCount = "не отмечено";
+        }
 
-        if (isset($data['commentsCount'])) {
-            $this->commentsCount = Comment::count();
-        } else {
-            $this->commentsCount = "не отмечено";
-        };
+        if (!isset($data['commentsCount'])) {
+            $commentsCount = "не отмечено";
+        }
 
-        if (isset($data['usersCount'])) {
-            $this->usersCount = User::count();
-        } else {
-            $this->usersCount = "не отмечено";
-        };
+        if (!isset($data['usersCount'])) {
+            $usersCount = "не отмечено";
+        }
+
+        dd($this->$data);
 
         Mail::to($this->$userEmail)->send(new ReportsCreate("отчет тест значение"));
 
