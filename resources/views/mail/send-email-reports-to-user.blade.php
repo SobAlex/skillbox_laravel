@@ -1,7 +1,7 @@
 @component('mail::message')
 
 
-    @component('mail::button', ['url' => 'ссылка на файл'])
+    @component('mail::button', ['url' => $scv])
         скачать отчет
     @endcomponent
 

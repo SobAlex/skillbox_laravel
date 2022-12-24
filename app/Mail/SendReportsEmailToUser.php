@@ -11,8 +11,11 @@ class SendReportsEmailToUser extends Mailable
     use Queueable;
     use SerializesModels;
 
-    public function __construct()
+    private $scv;
+
+    public function __construct($scv)
     {
+        $this->scv = $scv;
     }
 
     /**
@@ -22,6 +25,8 @@ class SendReportsEmailToUser extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.send-email-reports-to-user');
+        return $this->markdown('mail.send-email-reports-to-user', [
+            'scv' => $this->scv,
+        ]);
     }
 }
