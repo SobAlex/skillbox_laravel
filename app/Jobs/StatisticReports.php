@@ -15,6 +15,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailables\Attachment;
 
 
 class StatisticReports implements ShouldQueue
@@ -68,7 +69,6 @@ class StatisticReports implements ShouldQueue
             $usersCount = User::count();
         }
 
-        $fileName = 'reports.csv';
         $reports = [
             "кол-во постов" => $postsCount,
             "кол-во новостей" => $newsCount,
@@ -77,30 +77,28 @@ class StatisticReports implements ShouldQueue
             "кол-во юзеров" => $usersCount,
         ];
 
-        $headers = array(
-            "Content-type"        => "text/csv",
-            "Content-Disposition" => "attachment; filename=$fileName",
-            "Pragma"              => "no-cache",
-            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-            "Expires"             => "0"
-        );
-
         $columns = array('Title', 'Count');
 
         $callback = function () use ($reports, $columns) {
-            $file = fopen('\storage\reports.scv', 'w');
-            fputcsv($file, $columns);
+            $file = fopen('/storage/reports.scv', 'w');
 
             foreach ($reports as $key => $value) {
-                $row['Title']  = $key;
-                $row['Count']    = $value;
+                $columns['Title'] = $key;
+                $columns['Count'] = $value;
 
-                fputcsv($file, array($row['Title'], $row['Count']));
+                fputcsv($file, array($columns['Title'], $columns['Count']));
             }
 
             fclose($file);
-        };
 
-        Mail::to($this->userEmail)->send(new SendReportsEmailToUser("tempTest"));
+            Mail::to($this->userEmail)->send(new SendReportsEmailToUser('что-то'));
+        };
+    }
+
+    public function attachments()
+    {
+        return [
+            Attachment::fromPath('/storage/reports.scv'),
+        ];
     }
 }
