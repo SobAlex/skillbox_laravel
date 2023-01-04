@@ -16,6 +16,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Support\Facades\Storage;
 
 
 class StatisticReports implements ShouldQueue
@@ -72,33 +73,65 @@ class StatisticReports implements ShouldQueue
         $reports = [
             "кол-во постов" => $postsCount,
             "кол-во новостей" => $newsCount,
-            "кол-во комментов" =>  $commentsCount,
+            "кол-во комментов" => $commentsCount,
             "кол-во тегов" =>  $tagsCount,
             "кол-во юзеров" => $usersCount,
         ];
 
-        $columns = array('Title', 'Count');
+        Storage::disk('local')->put(
+            'reports.txt',
+            'кол-во постов: ' . $postsCount . PHP_EOL .
+                'кол-во новостей: ' . $newsCount . PHP_EOL .
+                'кол-во комментов: ' . $commentsCount . PHP_EOL .
+                'кол-во тегов: ' . $tagsCount . PHP_EOL .
+                'кол-во юзеров: ' . $usersCount . PHP_EOL
+        ); // это записывает и работает пишет только в строку
 
-        $callback = function () use ($reports, $columns) {
-            $file = fopen('/storage/reports.scv', 'w');
+        Mail::to($this->userEmail)->send(new SendReportsEmailToUser('что-то'));
 
-            foreach ($reports as $key => $value) {
-                $columns['Title'] = $key;
-                $columns['Count'] = $value;
 
-                fputcsv($file, array($columns['Title'], $columns['Count']));
-            }
+        // Attachment::fromPath('/storage/app/reports.txt');
 
-            fclose($file);
+        // $columns = array('Title', 'Count');
 
-            Mail::to($this->userEmail)->send(new SendReportsEmailToUser('что-то'));
-        };
+        // $callback = function () use ($reports, $columns) {
+
+        //     foreach ($reports as $key => $value) {
+        //         $columns['Title'] = $key;
+        //         $columns['Count'] = $value;
+
+        //         Storage::disk('local')->put('reports.scv', array($columns['Title'], $columns['Count']));
+        //         // этот код не работает. Пытался оформить по ячейкам. Что поправить?
+        //     }
+        // };
     }
 
-    public function attachments()
-    {
-        return [
-            Attachment::fromPath('/storage/reports.scv'),
-        ];
-    }
+    //         fputcsv($file, array($columns['Title'], $columns['Count']));
+
+    //     $file = fopen('/storage/reports.scv', 'w');
+
+    // $file = fopen('../../public/reports.scv', 'w');
+
+    // Storage::disk('local')->put('reports.scv', function ($reports) {
+    //     $columns = array('Title', 'Count');
+    //     foreach ($reports as $key => $value) {
+    //         $columns['Title'] = $key;
+    //         $columns['Count'] = $value;
+    //     }
+    // });
+
+    // file_put_contents($file, $reports);
+
+    // fclose($file);
+
+    //     fclose($file);
+
+    //     Mail::to($this->userEmail)->send(new SendReportsEmailToUser('что-то'));
+
+    // public function attachments()
+    // {
+    //     return [
+    //         Attachment::fromPath('/storage/reports.scv'),
+    //     ];
+    // }
 }
