@@ -16,18 +16,15 @@ class PostController extends Controller
 {
     public function index(Post $post, News $news)
     {
-        $title = 'Главная';
         $posts = $post->with('tags')->latest()->paginate(5);
         $news = $news->with('tags')->latest()->paginate(5);
         $tags = Tag::all();
 
-        return view('pages.home', compact('posts', 'news', 'title', 'tags'));
+        return view('pages.home', compact('posts', 'news', 'tags'));
     }
 
     public function show(Post $post)
     {
-        $title = 'Статья';
-
         if (auth()->user()) {
             $userEdit = auth()->user()->name;
         } else {
@@ -39,14 +36,12 @@ class PostController extends Controller
         $editTime = $postEdit->updated_at->format('m/d/Y');
         $edits = $postEdit->revisionHistory;
 
-        return view('posts.show', compact('post', 'title', 'comments', 'edits', 'userEdit', 'editTime', 'postEdit'));
+        return view('posts.show', compact('post', 'comments', 'edits', 'userEdit', 'editTime', 'postEdit'));
     }
 
     public function create()
     {
-        $title = 'Создать статью';
-
-        return view('posts.create', compact('title'));
+        return view('posts.create');
     }
 
     public function store(PostRequest $request, TagsPostSynchronizer $tagsPostSynchronizer)
@@ -73,9 +68,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        $title = 'Редактировать статью';
-
-        return view('posts.edit', compact('post', 'title'));
+        return view('posts.edit', compact('post'));
     }
 
     public function update(Post $post, TagsPostSynchronizer $tagsPostSynchronizer)

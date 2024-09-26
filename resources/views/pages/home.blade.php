@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Домашняя'])
 
 @php
     $posts = $posts ?? collect();

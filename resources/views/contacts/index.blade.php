@@ -1,7 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.master', ['title' => 'Контакты'])
 
 @section('content')
-
     <div class="container">
         <h1>Контакты</h1>
         <p>Тут контактная информация</p>
@@ -28,5 +27,4 @@
             <button type="submit" class="btn btn-primary">Отправить обращение</button>
         </form>
     </div>
-
 @endsection

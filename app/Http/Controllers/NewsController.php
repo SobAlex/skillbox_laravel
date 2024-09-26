@@ -13,18 +13,15 @@ class NewsController extends Controller
 {
     public function index(News $news)
     {
-        $title = 'Новости';
         $news = $news->with('tags')->latest()->paginate(5);
         $tags = Tag::all();
 
-        return view('news.index', compact('title', 'news', 'tags'));
+        return view('news.index', compact('news', 'tags'));
     }
 
     public function create()
     {
-        $title = 'Создать новость';
-
-        return view('news.create', compact('title'));
+        return view('news.create');
     }
 
     public function store(NewsRequest $request, TagsNewsSynchronizer $tagsNewsSynchronizer)
@@ -48,8 +45,6 @@ class NewsController extends Controller
 
     public function show(News $news)
     {
-        $title = 'Новость';
-
         if (auth()->user()) {
             $userEdit = auth()->user()->name;
         } else {
@@ -58,18 +53,15 @@ class NewsController extends Controller
 
         $newsEdit = News::find($news->id);
         $comments = $newsEdit->comments;
-//        dd($newsEdit);
         $editTime = $newsEdit->updated_at->format('m/d/Y');
         $edits = $newsEdit->revisionHistory;
 
-        return view('news.show', compact('news', 'title', 'comments', 'edits', 'userEdit', 'editTime', 'newsEdit'));
+        return view('news.show', compact('news', 'comments', 'edits', 'userEdit', 'editTime', 'newsEdit'));
     }
 
     public function edit(News $news)
     {
-        $title = 'Редактировать новость';
-
-        return view('news.edit', compact('news', 'title'));
+        return view('news.edit', compact('news'));
     }
 
     public function update(News $news, TagsNewsSynchronizer $tagsNewsSynchronizer)
